@@ -26,13 +26,19 @@ public class Ex02_RadioText extends HttpServlet {
 		String mailcheck = request.getParameter("mailcheck");
 		String content = request.getParameter("content");
 
+		if (mailcheck.equals("Yes"))
+			mailcheck = "수신동의";
+		else
+			mailcheck = "수신거절";
+
 		// 2 Service, 결과 처리
 		// response 한글처리, 출력객체 생성
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.print(gender);
-		out.print(mailcheck);
-		out.print(content);
+		out.print("<h2> 성별 : " + gender + "<br>");
+		out.print("<h2> 메일 : " + mailcheck + "<br>");
+		out.print("<h2> 인사 : " + content + "<br>");
+		out.print("<br><br><h2><a href='javascript:history.go(-1)'>다시 입력하기</a></h2><br>");
 	} // doGet
 
 } // class

@@ -29,10 +29,26 @@ public class Ex04_Select extends HttpServlet {
 		// response 한글처리, 출력객체 생성
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.print("<br>&nbsp;" + job + "<br>");
-		for (String i : interest) {
-			out.print("&nbsp;" + i + "&nbsp;");
+
+		// 선택여부를 확인하고 출력
+		// 선택하지 않아도 Parameter job은 존재, 그러나 value는 ㅇ벗음
+		if (job != null && job.length() > 0) {
+			out.print("<h3>" + job + "</h3>");
+		} else {
+			out.print("<h3> 직업을 선택해주세요 </h3>");
 		}
+
+		// 아무것도 선택하지 않으면 Parameter가 없음(null return)
+		// ( != null만 비교해도 가능하지만, 길이도 확인)
+		if (interest != null && interest.length > 0) {
+			for (String i : interest) {
+				out.print("<h3>" + i + "&nbsp;<h3>");
+			}
+		} else {
+			out.print("<h3> 관심분야를 선택해주세요 </h3>");
+		}
+		out.print("<br><br><h2><a href='javascript:history.go(-1)'>다시 입력하기</a></h2><br>");
+
 	} // doGet
 
 } // class
