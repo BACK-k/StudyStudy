@@ -9,7 +9,7 @@
 </head>
 <body>
 <h2>** servlet03_flow Student Login Test **</h2>
-<form action="/web01/login" method="get">
+<form action="/web01/login" method="post">
 <table>
 	<tr height="30"><td><label for="sno">SNO</label></td>
 		<td><input type="text" id="sno" name="sno"></td>
@@ -25,16 +25,17 @@
 </table>
 </form>
 <hr>
-<%-- <%	if ( request.getAttribute("message") !=null ) {
+<%	if ( request.getAttribute("message") !=null ) {
 	// message 출력 %>
-	=> message: <%=request.getAttribute("message")%>
+	<%=request.getAttribute("message")%>
 <%	} %> 
 
+<%-- 
 	** JSTL 적용하기
---%>
 <c:if test="${not empty requestScope.message}">
 => ${requestScope.message}<br>
 </c:if>	
+--%>
 	
 </body>
 </html>
