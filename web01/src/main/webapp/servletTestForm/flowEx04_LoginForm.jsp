@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,17 +25,17 @@
 </table>
 </form>
 <hr>
-<%	if ( request.getAttribute("message") !=null ) {
+<%-- <%	if ( request.getAttribute("message") !=null ) {
 	// message 출력 %>
 	<%=request.getAttribute("message")%>
 <%	} %> 
+ --%>
 
-<%-- 
-	** JSTL 적용하기
+	<!-- ** JSTL 적용하기 -->
 <c:if test="${not empty requestScope.message}">
 => ${requestScope.message}<br>
 </c:if>	
---%>
+
 	
 </body>
 </html>
