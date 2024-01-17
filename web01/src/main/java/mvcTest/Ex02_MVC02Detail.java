@@ -1,7 +1,6 @@
 package mvcTest;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,38 +8,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/list2")
-public class Ex01_MVC02List extends HttpServlet {
+@WebServlet("/detail")
+public class Ex02_MVC02Detail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public Ex01_MVC02List() {
+	public Ex02_MVC02Detail() {
 		super();
 	}
 
-	// MVC 패턴2 StudnetList 출력하기
-	// 요청을 Service에서 처리
-	// 결과 출력 (Java 스크립트)
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Controller
-		// 요청을 Service 처리
+		// 요청분석 & service
+		// 검색 대상의 id(sno) 필요, 로그인시에 보관해뒀음
+		// session에서 getAttribute
 		StudentService service = new StudentService();
-		List<StudentDTO> list = service.selectList();
+		StudentDTO info = service.selectOne((Integer) request.getSession().getAttribute("loginID"));
 
-		// view
-		// 결과 출력을 Jsp, Java 스크립트
-		// service 결과물 List를 Jsp가 출력할 수 있도록 Attribute를 만들어 보관
-		// request.setAttribute
-		request.setAttribute("myList", list);
+		// view 준비
+		// 결과를 view가 인식가능하도록 setAttribute
 		// Forward로 전달
-		String uri = "mvcTestJsp/ex01_MVC02List.jsp";
-		uri = "mvcTestJsp/ex02_MVC02List.jsp";
+		request.setAttribute("myInfo", info);
+		String uri = "mvcTestJsp/ex03_MVC02Detail.jsp";
 		request.getRequestDispatcher(uri).forward(request, response);
-	} // doGet
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
 
-} // class
+}

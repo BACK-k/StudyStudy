@@ -55,7 +55,12 @@
 
 <c:choose>
 	<c:when test="${not empty sessionScope.loginName}">
-		<a href="#">MyInfo</a>&nbsp;
+	<!-- home.jsp에서 MyInfo를 클릭했을 때
+	controller 서블릿
+	mvcTest패키지 Ex02_MVC02Detail.java로 이동, Service를 처리하고 결과를 requestScope에 담고, Forward
+	View JSP
+	mvcTestJsp파일 ex03_MVC02Detail.jsp로 이동해 requestScope에 담긴 결과를 확인하고 출력 -->
+		<a href="/web01/detail">MyInfo</a>&nbsp;
 		<a href="/web01/logout">Logout</a><br>
 	</c:when>
 	<c:otherwise>

@@ -36,27 +36,68 @@
 </pre>
 => 결과1 : step = 1<br>
 <table border="1" style="text-align:center; width:90%;">
-<c:forEach var="i" begin="1" end="10" step="1" varStatus="vs">
-	<c:choose>
-		<c:when test="${vs.count % 2 == 0 }">
-		<tr>
-			<td>${vs.index}</td><td>${vs.count}</td>
-		</tr>
-		</c:when>
-		<c:otherwise>
-		</c:otherwise>
-	</c:choose>
-</c:forEach>
+	<tr><th>짝수</th><th>index</th></tr>
+	<c:forEach var="i" begin="1" end="10" step="1" varStatus="vs">
+		<c:choose>
+			<c:when test="${vs.count % 2 == 0 }">
+			<tr>
+				<td>${vs.index}</td><td>${vs.count}</td>
+			</tr>
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
 </table>
 
 => 결과2 : step = 2<br>
 <table border="1" style="text-align:center; width:90%;">
+	<tr><th>짝수</th><th>index</th><th>count</th></tr>
 	<c:forEach var="i" begin="2" end="10" step="2" varStatus="vs">
 	<tr>
-		<td>${vs.index} </td><td>${vs.count}</td>
+		<td>${i}</td><td>${vs.index}</td><td>${vs.count}</td>
 	</tr>
 	</c:forEach>
 </table>
+
+=> 실습 3) 1~30 을 다음처럼 1행에 5개씩 출력하세요~<br>
+<!-- 
+1,2,3,4,5
+6,7,8,9,10
+11,12,13,14,15
+...
+............30 -->
+<c:forEach var="i" begin="0" end="26" step="5">
+	<c:forEach var="j" begin="1" end="5">
+		${i + j}
+		${j % 5 == 0 ? "<br>" : ", "}
+	</c:forEach>
+</c:forEach>
+
+for, choose, 김수빈
+<c:forEach var="i" begin="1" end="30" step="1" varStatus="vs">
+	<c:choose>
+	   <c:when test="${i %5 != 0}">
+	      ${i},
+	   </c:when>
+	   <c:when test="${i %5 == 0}">
+	      ${i}
+	      <br>
+	   </c:when>
+	</c:choose>
+</c:forEach>
+
+중첩 for, 주용현
+<c:forEach var="i" begin="0" end="5">
+   <c:forEach var="j" begin="${i * 5 + 1}" end="${i * 5 + 5}" varStatus="vs2">
+      <c:if test="${!vs2.last}">
+         ${j},
+      </c:if>
+      <c:if test="${vs2.last}">
+         ${j}<br>
+      </c:if>     
+   </c:forEach>
+</c:forEach>
 </b>
 </body>
 </html>
