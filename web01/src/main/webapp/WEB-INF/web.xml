@@ -7,5 +7,27 @@
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
+    
+<!--     Exception Test1 : 응답상태코드
+    <error-page>
+    에러코드가 404일 때 location에 있는 주소로 이동
+    	<error-code>404</error-code>
+    	<location>/jsp04_Exception/ex02_404Page.jsp</location>
+    </error-page>
+    <error-page>
+    	<error-code>500</error-code>
+    	<location>/jsp04_Exception/ex02_500Page.jsp</location>
+    </error-page> -->
+    
+    <!-- Exception Test2 : Exception Type -->
+    <!-- Exception Type을 정확하게 적어야 한다 -->
+    <error-page>
+    	<exception-type>java.lang.NullPointerException</exception-type>
+    	<location>/jsp04_Exception/ex03_Null.jsp</location>
+    </error-page>
+    <error-page>
+    	<exception-type>java.lang.ArithmeticException</exception-type>
+    	<location>/jsp04_Exception/ex03_Arith.jsp</location>
+    </error-page>
 
 </web-app>
