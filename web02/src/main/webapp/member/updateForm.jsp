@@ -12,7 +12,8 @@
 <table>
 	<tr height="40">
 		<td bgcolor="Plum"><label for="id"> I D </label></td>
-		<!-- readonly 읽기전용 설정 -->
+		<!-- readonly 읽기전용 설정, 서버로 데이터 전송
+		disabled : 서버로 전송되지 않음 -->
 		<td><input type="text" name="id" id="id" value="${requestScope.apple.id}" readonly size="20"></td>
 	</tr>
 	<tr height="40">
