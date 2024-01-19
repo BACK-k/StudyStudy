@@ -106,35 +106,37 @@ select * from jo;
 
 ==============================================
 
-3) Java Code : 프로젝트 Web02
+3) Java Code : 프로젝트 web02
 
 => MemberVO, MemberDAO, MemberService
 => Controller, View
-=> memberList, memberDetail
+=> memberList
 
-4) 로그인, 로그아웃 구현
-=> loginForm.jsp , 컨트롤러 C03_mLogin,  컨트롤러 C03_mLogout
+4) 로그인, 로그아웃, MyInfo 구현
+=> loginForm.jsp , 컨트롤러 C02_Login,  컨트롤러 C02_Logout
 => 로그인 성공 : index.html -> index.jsp  : ~~님 안녕하세요 ~~, 로그인후 메뉴로
 => 로그인 실패 : loginForm 으로 재로그인 유도
 
+=> Myinfo(mdetail)
+   -> C03_mDetail.java, memberDetail.jsp 
+
 5) 회원가입 구현
 => index.jsp : 메뉴추가 ( JoinF -> joinForm.jsp )
-=> joinForm.jsp : action="/Web02/mjoin"
-=> 컨트롤러 : C05_mJoin.java 
-		-> 성공 : 로그인 유도 ( loginForm.jsp )
-		-> 실패 : 재가입 유도 ( joinForm.jsp )
+=> joinForm.jsp : action="/web02/mjoin"
+=> 컨트롤러 : C04_mJoin.java 
+      -> 성공 : 로그인 유도 ( loginForm.jsp )
+      -> 실패 : 재가입 유도 ( joinForm.jsp )
 
 6) 내정보 수정하기
 => 메뉴 추가
 => 수정 -> 내정보를 표시한 (Controller)  수정가능한  Form :  updateForm.jsp
-=> 컨트롤러 : C06_mUpdatejava 
-		-> 성공 : 내정보 표시 ( memberDetail.jsp )
-		-> 실패 : 재수정 유도 ( updateForm.jsp )
+=> 컨트롤러 : C05_mUpdatejava 
+      -> 성공 : 내정보 표시 ( memberDetail.jsp )
+      -> 실패 : 재수정 유도 ( updateForm.jsp )
 
 7) 회원탈퇴
 => 메뉴 추가
-=> 삭제 컨트롤러 : C07_mDelete.java 
-		-> 성공 : index.jsp ( message : 탈퇴 성공 !!! )
-		-> 실패 : index.jsp ( message : 탈퇴 실패 !!! )
+=> 삭제 컨트롤러 : C06_mDelete.java 
+      -> 성공 : home.jsp ( message : 탈퇴 성공 !!! )
+      -> 실패 : home.jsp ( message : 탈퇴 실패 !!! )
  
-=========================================================

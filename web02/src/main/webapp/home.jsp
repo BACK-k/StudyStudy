@@ -24,7 +24,9 @@
 <c:choose>
 	<c:when test="${not empty sessionScope.loginName}">
 		&nbsp;<a href="/web02/mdetail">MyInfo</a>&nbsp;
+		&nbsp;<a href="/web02/mdetail?jCode=U">내정보수정</a>&nbsp;
 		&nbsp;<a href="/web02/logout">Logout</a><br>
+		&nbsp;<a href="/web02/mdelete">회원탈퇴</a><br>
 	</c:when>
 	<c:otherwise>
 		&nbsp;<a href="/web02/member/loginForm.jsp">Login</a>&nbsp;
