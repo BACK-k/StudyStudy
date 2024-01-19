@@ -26,6 +26,7 @@ public class C06_mDelete extends HttpServlet {
 		// 2 Service 처리
 		MemberService service = new MemberService();
 		if (service.delete((String) (request.getSession().getAttribute("loginID"))) > 0) {
+			request.setAttribute("message", "탈퇴 성공");
 			request.getSession().invalidate();
 			response.sendRedirect(uri);
 		}
