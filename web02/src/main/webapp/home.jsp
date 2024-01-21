@@ -18,8 +18,6 @@
 	</c:otherwise>
 </c:choose>
 <br>
-&nbsp;<a href="/web02/mlist">MList</a>
-<hr>
 <c:choose>
 	<c:when test="${not empty sessionScope.loginName}">
 		&nbsp;<a href="/web02/mdetail">MyInfo</a>&nbsp;
@@ -32,6 +30,8 @@
 		&nbsp;<a href="/web02/member/joinForm.jsp">Join</a><br>
 	</c:otherwise>
 </c:choose>
+&nbsp;<a href="/web02/mlist">MList</a>
+<hr>
 <img alt="" src="/web02/images/blue.gif" width="855" height="300">
 <br>
 <img alt="" src="/web02/images/karina2.gif" width="450" height="450">
