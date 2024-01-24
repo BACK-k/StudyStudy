@@ -4,8 +4,17 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+<!-- 애너테이션 (Annotation, @) Component 를 Scan 할 패키지 정의  
+=> <context:component-scan : @Component 가 붙은 모든 클래스를 스프링빈으로 등록 
+=> <context:~~~ 는 Namespaces 에서 선택한후 사용 가능함.
+-->
+
 <!-- 생성해야되는 bean에 annotation을 할당할 때,
 	component 스캔해야되는 패키지를 알려줌 -->
 	<context:component-scan base-package="iocDI02_anno" />
-
+<!-- xml과 Annotation 병행 Test -->
+	<bean class="iocDI02_anno.Speaker" lazy-init="true" />
+	
+	<bean id="spa" class="iocDI02_anno.SpeakerA" lazy-init="true"/>
+	<bean id="spb" class="iocDI02_anno.SpeakerB" lazy-init="true"/>
 </beans>

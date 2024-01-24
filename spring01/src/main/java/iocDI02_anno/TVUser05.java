@@ -2,7 +2,6 @@ package iocDI02_anno;
 
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 //** Annotation, @, 애너테이션
 //=> 컴파일러에게 알려줌 (지시어)
@@ -41,7 +40,7 @@ interface TV {
 }
 
 //bean을 등록, id가 getBean(호출)된다, id가 없으면 그냥 생성
-@Component("tv")
+//@Component("tv")
 class SsTVi implements TV {
 //	생성자를 통해 누가 생성되었는지 확인
 	public SsTVi() {
@@ -71,7 +70,7 @@ class SsTVi implements TV {
 }
 
 //bean을 등록
-@Component("ltv")
+//@Component("ltv")
 class LgTVi implements TV {
 //	생성자를 통해 누가 생성되었는지 확인
 	public LgTVi() {

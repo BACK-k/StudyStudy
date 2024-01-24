@@ -7,8 +7,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import domain.MemberDTO;
 
+@Component
 public class MemberDAO {
 	private static Connection cn = DBConnection.getConnection();
 	private static Statement st;
