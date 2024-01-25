@@ -7,11 +7,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import domain.MemberDTO;
 
-@Component
+//component로 bean을 생성하라고 컨테이너에게 요청
+//serivce에서 사용하기 위해 미리 생성되어 있어야함
+@Repository
 public class MemberDAO {
 	private static Connection cn = DBConnection.getConnection();
 	private static Statement st;
