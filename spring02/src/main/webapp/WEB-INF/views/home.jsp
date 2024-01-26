@@ -54,6 +54,6 @@
 </c:if>
 <br><hr>
 	&nbsp;<a href="member/memberList">MList</a>
-
+	&nbsp;<a href="jo/joList">JList</a>
 </body>
 </html>
