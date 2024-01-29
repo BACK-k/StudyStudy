@@ -4,39 +4,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title> Spring02_MVC02 MemberList </title>
+	<meta charset="UTF-8">
+	<title> Spring MVC2 BoardList </title>
 	<link rel="stylesheet" type="text/css" 
 	href="/spring02/resources/myLib/myStyle.css">
 </head>
 <body>
-<h2> Spring02_MVC02 MemberList </h2>
+<h2> Spring MVC2 BoardList </h2>
 <hr>
 <c:if test="${!empty requestScope.message}">
 => ${requestScope.message}<br><hr>
 </c:if>
-
+<div style="width:100%; text-align:center; display:flex; justify-content:center; ">
 <table border="1" style="width:100%">
-	<tr bgcolor="Aquamarine">
-		<th>ID</th><th>PASSWORD</th><th>NAME</th><th>AGE</th><th>JNO</th>
-		<th>Info</th><th>Point</th><th>BRITHDAY</th><th>추천인</th>
-	</tr>
+<tr bgcolor="Aquamarine">
+	<th>Seq</th><th>Title</th><th>ID</th><th>RegDate</th><th>조회수</th>
+</tr>
 	
 <c:if test="${!empty requestScope.banana }">
 	<c:forEach var="b" items="${requestScope.banana}">
 		<tr>
-			<td>${b.id}</td><td>${b.password}</td><td>${b.name}</td>
-			<td>${b.age}</td><td>${b.jno}</td><td>${b.info}</td>
-			<td>${b.point}</td><td>${b.birthday}</td><td>${b.rid}</td>
+			<td>${b.seq}</td>
+			<td>
+			<c:if test="${!empty loginID}">
+				<a href="detail?jCode=D&seq=${b.seq}">${b.title}</a>
+			</c:if>
+			<c:if test="${empty loginID}">
+				${b.title}
+			</c:if>
+			</td>
+			<td>${b.id}</td><td>${b.regdate}</td><td>${b.cnt}</td>
 		</tr>
 	</c:forEach>
 </c:if>
 <c:if test="${empty requestScope.banana }">
 	<tr>
-		<td colspan="9"> 정보가 없습니다 </td>
+		<td colspan="5"> 정보가 없습니다 </td>
 	</tr>
 </c:if>
 </table>
+</div>
+<c:if test="${!empty sessionScope.loginID}">
+&nbsp;<a href="boardInsert">글쓰기</a>
+</c:if>
 <hr>
 &nbsp;<a href="/spring02/home">Home</a>&nbsp;
 &nbsp;<a href='javascript:history.go(-1)'>이전으로</a>&nbsp;

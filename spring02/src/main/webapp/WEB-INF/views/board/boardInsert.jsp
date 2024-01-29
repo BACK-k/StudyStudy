@@ -13,24 +13,12 @@
 <form action="insert" method="get">
 <table>
 	<tr height="40">
-		<td bgcolor="MediumPurple"><label for="jno"> JNO </label></td>
-		<td><input type="text" name="jno" id="jno" size="20"></td>
+		<td bgcolor="MediumPurple"><label for="title"> Title </label></td>
+		<td><input type="text" name="title" id="title"></td>
 	</tr>
 	<tr height="40">
-		<td bgcolor="MediumPurple"><label for="jname"> JNAME </label></td>
-		<td><input type="text" name="jname" id="jname" size="20"></td>
-	</tr>
-	<tr height="40">
-		<td bgcolor="MediumPurple"><label for="captain"> CAPTAIN </label></td>
-		<td><input type="text" name="captain" id="captain" size="20"></td>
-	</tr>
-	<tr height="40">
-		<td bgcolor="MediumPurple"><label for="project"> PROJECT </label></td>
-		<td><input type="text" name="project" id="project" size="20"></td>
-	</tr>
-	<tr height="40">
-		<td bgcolor="MediumPurple"><label for="slogan"> SLOGAN </label></td>
-		<td><input type="text" name="slogan" id="slogan" size="20"></td>
+		<td bgcolor="MediumPurple"><label for="ctt"> Content </label></td>
+		<td><input type="text" name="content" id="ctt" size="20"></td>
 	</tr>
 	
 	<tr>

@@ -27,7 +27,8 @@ public class JoDAO {
 //	   FROM STUDENT S1 LEFT OUTER JOIN JO J ON S1.JNO = J.JNO ) SS;
 	// joList
 	public List<JoDTO> selectList() {
-		sql = "select J.JNO, J.JNAME, J.CAPTAIN, M.NAME 조장명, J.PROJECT, J.SLOGAN FROM JO J, MEMBER M WHERE J.CAPTAIN = M.ID";
+		sql = "select * from jo";
+//		sql = "select J.JNO, J.JNAME, J.CAPTAIN, M.NAME 조장명, J.PROJECT, J.SLOGAN FROM JO J, MEMBER M WHERE J.CAPTAIN = M.ID";
 		List<JoDTO> list = new ArrayList<JoDTO>();
 
 		try {
@@ -41,9 +42,9 @@ public class JoDAO {
 					dto.setJno(rs.getInt(1));
 					dto.setJname(rs.getString(2));
 					dto.setCaptain(rs.getString(3));
-					dto.setCname(rs.getString(4));
-					dto.setProject(rs.getString(5));
-					dto.setSlogan(rs.getString(6));
+//					dto.setCname(rs.getString(4));
+					dto.setProject(rs.getString(4));
+					dto.setSlogan(rs.getString(5));
 
 					list.add(dto);
 				} while (rs.next());

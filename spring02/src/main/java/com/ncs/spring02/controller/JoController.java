@@ -1,6 +1,5 @@
 package com.ncs.spring02.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +9,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ncs.spring02.domain.JoDTO;
 import com.ncs.spring02.service.JoService;
+import com.ncs.spring02.service.MemberService;
+
+import lombok.AllArgsConstructor;
 
 @Controller
 @RequestMapping(value = "/jo")
+// 모든 맴버변수를 초기화하는 생성자를 자동추가, 사용
+// 그러므로 @Autowired는 생략 가능
+@AllArgsConstructor
 public class JoController {
-	@Autowired(required = false)
+//	@Autowired(required = false)
 	JoService service;
+//	@Autowired(required = false)
+	MemberService serviceM;
 
 	// joList
 	@RequestMapping(value = "/joList", method = RequestMethod.GET)
@@ -27,12 +34,15 @@ public class JoController {
 	@RequestMapping(value = "/joDetail", method = RequestMethod.GET)
 	public String jDetail(Model model, @RequestParam("jno") String jno, @RequestParam("jCode") String jCode) {
 		String uri = "/jo/joDetail";
+		model.addAttribute("apple", service.selectOne(jno));
 
 		if ("U".equals(jCode)) {
 			uri = "jo/joUpdate";
 		}
 
-		model.addAttribute("apple", service.selectOne(jno));
+		if ("D".equals(jCode)) {
+			model.addAttribute("banana", serviceM.selectJoList(jno));
+		}
 		return uri;
 	} // joDetail
 
@@ -43,19 +53,19 @@ public class JoController {
 
 	// JoInsert
 	@RequestMapping(value = { "/insert" }, method = RequestMethod.GET)
-	public String join(Model model, JoDTO dto) {
+	public String join(Model model, JoDTO dto, RedirectAttributes rttr) {
 		// 1 요청 분석
 		// 이전 : 한글처리, request 값 -> dto에 set
 		// 스프링 : 한글은 filter, request 처리는 parameter
-		String uri = "/jo/joList";
+		String uri = "redirect:joList";
 
 		// 2 Service
 		if (service.insert(dto) > 0) {
 			model.addAttribute("banana", service.selectList());
-			model.addAttribute("message", " 조 추가 성공 ");
+			rttr.addFlashAttribute("message", " 조 추가 성공 ");
 		} else {
 			uri = "jo/joInsert";
-			model.addAttribute("message", " 조 추가 실패 ");
+			rttr.addFlashAttribute("message", " 조 추가 실패 ");
 		}
 		return uri;
 	} // JoInsert
@@ -83,15 +93,15 @@ public class JoController {
 	// joDelete
 	@RequestMapping(value = { "/joDelete" }, method = RequestMethod.GET)
 	public String datail(@RequestParam("jno") String jno, Model model, RedirectAttributes rttr) {
-		String uri = "/jo/joList";
+		String uri = "redirect:joList";
 
 		// 2 Service 처리
 		if (service.delete(jno) > 0) {
 			model.addAttribute("banana", service.selectList());
-			model.addAttribute("message", " 삭제 성공 ");
+//			model.addAttribute("message", " 삭제 성공 ");
 			rttr.addFlashAttribute("message", " 삭제 성공 ");
 		} else {
-			model.addAttribute("message", " 삭제 실패 ");
+//			model.addAttribute("message", " 삭제 실패 ");
 			rttr.addFlashAttribute("message", " 삭제 실패 ");
 		}
 		return uri;

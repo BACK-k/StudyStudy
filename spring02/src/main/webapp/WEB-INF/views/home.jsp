@@ -30,6 +30,7 @@
 <img alt="" src="resources/images/karina2.gif" width="65" height="100">
 <img alt="" src="resources/images/KarinaBlack.jpg" width="60" height="100">
 <img alt="" src="resources/images/KarinaBlack2.jpg" width="65" height="100">
+<img alt="" src="resources/images/KarinaPink2.jpg" width="90" height="100">
 <img alt="" src="resources/images/KarinaBlack4.jpg" width="70" height="100">
 <img alt="" src="resources/images/KarinaBlack5.jpg" width="70" height="100">
 <img alt="" src="resources/images/KarinaBlack6.jpg" width="100" height="100">
@@ -39,6 +40,10 @@
 <img alt="" src="resources/images/KarinaWhite1.jpg" width="45" height="100">
 <img alt="" src="resources/images/Karina3.jpg" width="100" height="55">
 <img alt="" src="resources/images/KarinaPink.jpg" width="100" height="70">
+<img alt="" src="resources/images/KarinaBlack7.jpg" width="70" height="100">
+<img alt="" src="resources/images/KarinaPink3.jpg" width="90" height="100">
+<img alt="" src="resources/images/KarinaBlack8.jpg" width="60" height="100">
+<img alt="" src="resources/images/KarinaBlack9.jpg" width="65" height="100">
 <hr>
 <!-- Login 전 -->
 <c:if test="${empty sessionScope.loginID}">
@@ -55,5 +60,6 @@
 <br><hr>
 	&nbsp;<a href="member/memberList">MList</a>
 	&nbsp;<a href="jo/joList">JList</a>
+	&nbsp;<a href="board/boardList">BList</a>
 </body>
 </html>
