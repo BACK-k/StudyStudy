@@ -24,10 +24,13 @@
 <!-- 절대경로로 이미지넣어주기 -->
 <img alt="" src="resources/images/KarinaSapporo1.jpg" width="70" height="100">
 <img alt="" src="resources/images/KarinaSapporo2.jpg" width="45" height="100">
+<img alt="" src="resources/images/KarinaBlack11.jpg" width="65" height="100">
+<img alt="" src="resources/images/KarinaPink6.jpg" width="70" height="100">
 <img alt="" src="resources/images/KarinaSapporo3.jpg" width="80" height="100">
+<img alt="" src="resources/images/KarinaBrown.gif" width="60" height="100">
 <img alt="" src="resources/images/KarinaSapporo4.jpg" width="75" height="100">
+<img alt="" src="resources/images/Karina3.jpg" width="100" height="55">
 <img alt="" src="/spring02/resources/images/karina1.gif" width="50" height="100">
-<img alt="" src="resources/images/karina2.gif" width="65" height="100">
 <img alt="" src="resources/images/KarinaBlack.jpg" width="60" height="100">
 <img alt="" src="resources/images/KarinaBlack2.jpg" width="65" height="100">
 <img alt="" src="resources/images/KarinaPink2.jpg" width="90" height="100">
@@ -35,15 +38,18 @@
 <img alt="" src="resources/images/KarinaBlack5.jpg" width="70" height="100">
 <img alt="" src="resources/images/KarinaBlack6.jpg" width="100" height="100">
 <img alt="" src="resources/images/KarinaFlower1.jpg" width="80" height="100">
+<img alt="" src="resources/images/karina2.gif" width="65" height="100">
+<img alt="" src="resources/images/KarinaPink4.jpg" width="55" height="100">
+<img alt="" src="resources/images/KarinaPink.jpg" width="100" height="70">
 <img alt="" src="resources/images/KarinaFlower2.jpg" width="100" height="100">
 <img alt="" src="resources/images/KarinaSpring.jpg" width="50" height="100">
+<img alt="" src="resources/images/KarinaPink5.gif" width="100" height="75">
 <img alt="" src="resources/images/KarinaWhite1.jpg" width="45" height="100">
-<img alt="" src="resources/images/Karina3.jpg" width="100" height="55">
-<img alt="" src="resources/images/KarinaPink.jpg" width="100" height="70">
-<img alt="" src="resources/images/KarinaBlack7.jpg" width="70" height="100">
+<img alt="" src="resources/images/KarinaPink7.jpg" width="70" height="100">
 <img alt="" src="resources/images/KarinaPink3.jpg" width="90" height="100">
 <img alt="" src="resources/images/KarinaBlack8.jpg" width="60" height="100">
 <img alt="" src="resources/images/KarinaBlack9.jpg" width="65" height="100">
+<img alt="" src="resources/images/KarinaBlack10.jpg" width="70" height="100">
 <hr>
 <!-- Login 전 -->
 <c:if test="${empty sessionScope.loginID}">
