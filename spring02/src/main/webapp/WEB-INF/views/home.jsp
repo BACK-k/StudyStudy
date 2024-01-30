@@ -23,14 +23,13 @@
 <hr>
 <!-- 절대경로로 이미지넣어주기 -->
 <img alt="" src="resources/images/KarinaSapporo1.jpg" width="70" height="100">
-<img alt="" src="resources/images/KarinaSapporo2.jpg" width="45" height="100">
 <img alt="" src="resources/images/KarinaBlack11.jpg" width="65" height="100">
 <img alt="" src="resources/images/KarinaPink6.jpg" width="70" height="100">
 <img alt="" src="resources/images/KarinaSapporo3.jpg" width="80" height="100">
 <img alt="" src="resources/images/KarinaBrown.gif" width="60" height="100">
 <img alt="" src="resources/images/KarinaSapporo4.jpg" width="75" height="100">
 <img alt="" src="resources/images/Karina3.jpg" width="100" height="55">
-<img alt="" src="/spring02/resources/images/karina1.gif" width="50" height="100">
+<img alt="" src="/spring02/resources/images/karina1.gif" width="65" height="100">
 <img alt="" src="resources/images/KarinaBlack.jpg" width="60" height="100">
 <img alt="" src="resources/images/KarinaBlack2.jpg" width="65" height="100">
 <img alt="" src="resources/images/KarinaPink2.jpg" width="90" height="100">
@@ -44,12 +43,19 @@
 <img alt="" src="resources/images/KarinaFlower2.jpg" width="100" height="100">
 <img alt="" src="resources/images/KarinaSpring.jpg" width="50" height="100">
 <img alt="" src="resources/images/KarinaPink5.gif" width="100" height="75">
+<img alt="" src="resources/images/KarinaBlack12.jpg" width="75" height="100">
+<img alt="" src="resources/images/KarinaBlack9.jpg" width="65" height="100">
 <img alt="" src="resources/images/KarinaWhite1.jpg" width="45" height="100">
 <img alt="" src="resources/images/KarinaPink7.jpg" width="70" height="100">
-<img alt="" src="resources/images/KarinaPink3.jpg" width="90" height="100">
 <img alt="" src="resources/images/KarinaBlack8.jpg" width="60" height="100">
-<img alt="" src="resources/images/KarinaBlack9.jpg" width="65" height="100">
+<img alt="" src="resources/images/KarinaPink3.jpg" width="90" height="100">
+<img alt="" src="resources/images/KarinaSapporo2.jpg" width="45" height="100">
+<img alt="" src="resources/images/KarinaParis.gif" width="85" height="100">
 <img alt="" src="resources/images/KarinaBlack10.jpg" width="70" height="100">
+<img alt="" src="resources/images/ShinSaekyeong3.gif" width="95" height="100">
+<img alt="" src="resources/images/ShinSaekyeong.gif" width="100" height="100">
+<img alt="" src="resources/images/ShinSaekyeong.jpg" width="75" height="100">
+<img alt="" src="resources/images/ShinSaekyeong2.gif" width="90" height="100">
 <hr>
 <!-- Login 전 -->
 <c:if test="${empty sessionScope.loginID}">

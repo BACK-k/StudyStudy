@@ -16,7 +16,7 @@
 => ${requestScope.message}<br><hr>
 </c:if>
 <div style="width:100%; text-align:center; display:flex; justify-content:center; ">
-<table border="1" style="width:100%">
+<table style="width:100%">
 <tr bgcolor="Aquamarine">
 	<th>Seq</th><th>Title</th><th>ID</th><th>RegDate</th><th>조회수</th>
 </tr>
@@ -26,12 +26,22 @@
 		<tr>
 			<td>${b.seq}</td>
 			<td>
+			<div style="text-align:left;">
+			<!-- 답글 등록 후 Title 출력전에 들여쓰기 추가 -->
+			<c:if test="${b.indent>0}">
+				<c:forEach  begin="1" end="${b.indent}">
+					<span>&nbsp;&nbsp;</span>
+				</c:forEach>
+				<span sytle="color:blue;">RE: </span>
+			</c:if>
+			<!-- 로그인 한 경우에만 글내용을 볼 수 있게 -->
 			<c:if test="${!empty loginID}">
 				<a href="detail?jCode=D&seq=${b.seq}">${b.title}</a>
 			</c:if>
 			<c:if test="${empty loginID}">
 				${b.title}
 			</c:if>
+			</div>
 			</td>
 			<td>${b.id}</td><td>${b.regdate}</td><td>${b.cnt}</td>
 		</tr>
