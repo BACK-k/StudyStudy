@@ -64,7 +64,7 @@
             <c:if test="${sessionScope.loginID eq b.id}">
                <div class="push_cancel_wrap">
                   <a href="detail?jCode=U&seq=${ b.seq }" id="push_button"><span>수정</span></a>
-                  <a href="boardDelete?seq=${ b.seq }" id="cancel_button" onclick="return delchk()" style="color:black;"><span>삭제</span></a>
+                  <a href="boardDelete?seq=${ b.seq }&root=${b.root}" id="cancel_button" onclick="return delchk()" style="color:black;"><span>삭제</span></a>
                </div>
             </c:if>
             <br>

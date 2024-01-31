@@ -129,10 +129,9 @@ public class BoardController {
 
 	// Delete
 	@GetMapping("/boardDelete")
-	public String datail(@RequestParam("seq") int seq, Model model, RedirectAttributes rttr) {
+	public String datail(BoardDTO dto, RedirectAttributes rttr) {
 		String uri = "redirect:boardList";
-		if (service.delete(seq) > 0) {
-			model.addAttribute("banana", service.selectList());
+		if (service.delete(dto) > 0) {
 			rttr.addFlashAttribute("message", " 삭제 성공 ");
 		} else {
 			rttr.addFlashAttribute("message", " 삭제 실패 ");

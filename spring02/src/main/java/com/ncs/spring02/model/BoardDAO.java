@@ -177,20 +177,31 @@ public class BoardDAO {
 			System.out.println("** update Exception => " + e.toString());
 			return 0;
 		}
-	}
+	} // update
 
 	// delete
-	public int delete(int seq) {
-		sql = "delete from board where seq=?";
+	// seq로 삭제
+	// 답글 추가 후 원글과 답글을 구분하여 삭제
+	// 원글 삭제 : where root = ? (원글에 종속된 답글까지 삭제)
+	// 답글 삭제 : where seq = ?
+	public int delete(BoardDTO dto) {
+		// 원글
+		if (dto.getSeq() == dto.getRoot()) {
+			sql = "delete from board where root=?";
+
+		} else {
+			// 답글
+			sql = "delete from board where seq=?";
+		}
 		try {
 			pst = cn.prepareStatement(sql);
-			pst.setInt(1, seq);
+			pst.setInt(1, dto.getSeq());
 
 			return pst.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("** delete Exception => " + e.toString());
 			return 0;
 		}
-	}
+	} // delete
 
 } // class
