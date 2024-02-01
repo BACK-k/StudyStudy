@@ -1,3 +1,4 @@
+"use strict"
 /**
 ** 입력값의 무결성 확인
 ** member 무결성 확인사항
@@ -25,8 +26,6 @@
             return false;
         }    
  */
-
-"use strict"
 // 1 ID
 // 길이, 영문과 숫자
 // let special = /[a-z.0-9]/gi;
@@ -50,7 +49,7 @@ function idCheck(){
 
 // 2 Password
 // 길이, 영문,숫자,특수문자로 구성, 특수문자는 반드시 1개 이상
-special = /[a-z.0-9.!-*.@]/gi;
+let special = /[a-z.0-9.!-*.@]/gi;
 function pwCheck(){
 	let pw = document.getElementById('password').value;
 	if(pw.length <4 || pw.length > 10){

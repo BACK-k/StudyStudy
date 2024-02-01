@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -135,6 +136,20 @@ import com.ncs.spring02.service.MemberService;
 public class MemberController {
 	@Autowired(required = false)
 	MemberService service;
+
+	// ID 중복확인
+	@GetMapping("/idDupCheck")
+	public void idDupCheck(@RequestParam("id") String id, Model model) {
+		// newID 존재여부 확인 & 결과처리
+		if (service.selectOne(id) != null) {
+			// 사용 불가능
+			model.addAttribute("idUse", "F");
+		} else {
+			// 사용 가능
+			model.addAttribute("idUse", "T");
+		}
+
+	} // idDupCheck
 
 // Login Form 출력
 // ver01 : return String

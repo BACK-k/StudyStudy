@@ -9,6 +9,26 @@
 <Script src="/spring02/resources/myLib/inCheck.js"></Script>
 <script>
 "use strict"
+// ** ID 중복확인
+// => UI 개선사항
+// => 중복확인 버튼 추가
+//    처음 : 중복확인버튼_enable / submit_disable
+// => 중복확인 완료후 submit 이 가능하도록
+//    중복확인버튼_disable / submit_enable
+// => 중복확인 기능 : function idDupCheck()
+//    id입력값의 무결성점검 -> id 확인요청 -> 서버로 전송 -> id , selectOne 결과 -> response: 사용가능/불가능 
+// => 서버측 : 컨트롤러에 idDupCheck 요청을 처리하는 매핑메서드, view_Page(팝업창) 작성   
+function idDupCheck() {
+   // 1) id입력값의 무결성점검
+   if ( !iCheck ) { iCheck=idCheck();
+   }else {
+   // 2) 서버로 id 확인요청 -> 결과는 view_Page(팝업창) 으로
+      let url="idDupCheck?id="+document.getElementById('id').value;
+      window.open(url,'_blank','width=400,height=300,resizable=yes,scrollbars=yes,toolbar=no,menubar=yes');
+   }
+} //idDupCheck
+
+//----------------------------------------------------------------------------------------
 // ** 화살표 함수
 // => 익명함수를 간단하게 표기
 //    function(){....}  
@@ -191,7 +211,9 @@ function inCheck(){
 		<table>
 			<tr height="40">
 				<td bgcolor="MediumPurple"><label for="id"> I D </label></td>
-				<td><input type="text" name="id" id="id" placeholder="영문과 숫자로 4-10글자" size="20"> <br> <span id="iMessage" class="eMessage"></span></td>
+				<td><input type="text" name="id" id="id" placeholder="영문과 숫자로 4-10글자" size="20">
+					<button type="button" id="idDup" onclick="idDupCheck()">ID중복확인</button>
+					<br> <span id="iMessage" class="eMessage"></span></td>
 			</tr>
 			<tr height="40">
 				<td bgcolor="MediumPurple"><label for="password"> PASSWORD </label></td>
@@ -244,7 +266,8 @@ function inCheck(){
     - submit 진행 : default (또는 return true)
     - submit 정지 : submit 이벤트를 무효화 해야함 (return false 또는 이벤트.preventDefault())  -->
 <!-- incheck가 true를 return하면 submit 실행 -->
-         <input type="submit" id="submitTag" value="가입" onclick="return inCheck()">&nbsp;&nbsp;
+         <input type="submit" id="submitTag" value="가입"
+         onclick="return inCheck()" disabled>&nbsp;&nbsp;
 <!-- Button Test
 => default : form 내부에서는  submit 와  동일하게 작동됨 
             inCheck() 의 return 값에 따라 (true 면) submit 진행됨 
@@ -257,10 +280,9 @@ function inCheck(){
 			</tr>
 		</table>
 	</form>
-	<hr>
 	<!-- <button onclick="inCheck()">ButtonTest</button> -->
-
-	<c:if test="${!empty requestScope.message}">
+<c:if test="${!empty requestScope.message}">
+<hr>
 => ${requestScope.message}	
 </c:if>
 
