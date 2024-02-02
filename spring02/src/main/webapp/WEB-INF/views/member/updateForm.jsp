@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title> updateForm </title>
+	<link rel="stylesheet" type="text/css" 
+	href="/spring02/resources/myLib/myStyle.css">
 </head>
 <body>
 <form action="update" method="post">
@@ -16,10 +18,11 @@
 		disabled : 서버로 전송되지 않음 -->
 		<td><input type="text" name="id" id="id" value="${requestScope.apple.id}" readonly size="20"></td>
 	</tr>
-	<tr height="40">
+<%-- PassWordEncoder 적용 후 분리
+ 	<tr height="40">
 		<td bgcolor="Plum"><label for="password"> PASSWORD </label></td>
 		<td><input type="password" name="password" id="password" value="${requestScope.apple.password}" size="20"></td>
-	</tr>
+	</tr> --%>
 	<tr height="40">
 		<td bgcolor="Plum"><label for="name"> Name </label></td>
 		<td><input type="text" name="name" id="name" value="${requestScope.apple.name}" size="20"></td>
@@ -66,7 +69,7 @@
 </table>	
 </form>
 <hr>
-
+&nbsp;<a href="pwUpdate">비밀번호수정하기</a>&nbsp;
 <c:if test="${!empty requestScope.message}">
 => ${requestScope.message}	
 </c:if>

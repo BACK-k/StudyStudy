@@ -140,3 +140,14 @@ select * from jo;
       -> 성공 : home.jsp ( message : 탈퇴 성공 !!! )
       -> 실패 : home.jsp ( message : 탈퇴 실패 !!! )
  
+==============================================
+Upload File
+1 Table
+ file 정보(경로와 파일명) 보관 컬럼 추가
+ 
+ 기본값 넣어놓기
+
+2 Java Code
+ 
+
+
