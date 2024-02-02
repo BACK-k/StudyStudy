@@ -13,12 +13,14 @@
 <table border="1" style="width:100%">
 	<tr bgcolor="purple">
 		<th>ID</th><th>PASSWORD</th><th>NAME</th><th>AGE</th><th>JNO</th>
-		<th>Info</th><th>Point</th><th>BRITHDAY</th><th>추천인</th>
+		<th>Info</th><th>Point</th><th>BRITHDAY</th><th>추천인</th><th>Images</th>
 	</tr>
 <c:set var="a" value="${requestScope.apple}"/>
 	<tr>
 		<td>${a.id}</td><td>${a.password}</td><td>${a.name}</td><td>${a.age}</td><td>${a.jno}</td>
 		<td>${a.info}</td><td>${a.point}</td><td>${a.birthday}</td><td>${a.rid}</td>
+		<td><img alt="myImage" width="150" height="170"
+				src="/spring02/resources/uploadImages/${a.uploadfile}"></td>
 	</tr>
 </table>
 

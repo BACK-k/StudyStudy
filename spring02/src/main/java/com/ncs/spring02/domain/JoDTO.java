@@ -14,4 +14,5 @@ public class JoDTO {
 	private String project;
 	private String slogan;
 	private String cname;
+	private String uploadfile;
 }

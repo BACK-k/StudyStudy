@@ -41,6 +41,7 @@ public class MemberDAO {
 					dto.setPoint(rs.getDouble(7));
 					dto.setBirthday(rs.getString(8));
 					dto.setRid(rs.getString(9));
+					dto.setUploadfile(rs.getString(10));
 
 					list.add(dto);
 				} while (rs.next());
@@ -76,6 +77,7 @@ public class MemberDAO {
 					dto.setPoint(rs.getDouble(7));
 					dto.setBirthday(rs.getString(8));
 					dto.setRid(rs.getString(9));
+					dto.setUploadfile(rs.getString(10));
 
 					list.add(dto);
 				} while (rs.next());
@@ -109,6 +111,7 @@ public class MemberDAO {
 				dto.setPoint(rs.getDouble(7));
 				dto.setBirthday(rs.getString(8));
 				dto.setRid(rs.getString(9));
+				dto.setUploadfile(rs.getString(10));
 				return dto;
 			} else {
 				return null;
@@ -122,7 +125,7 @@ public class MemberDAO {
 	// ** insert
 	// 모든 컬럼을 입력
 	public int insert(MemberDTO dto) {
-		sql = "insert into member values(?,?,?,?,?,?,?,?,?)";
+		sql = "insert into member values(?,?,?,?,?,?,?,?,?,?)";
 		try {
 			pst = cn.prepareStatement(sql);
 			pst.setString(1, dto.getId());
@@ -134,6 +137,7 @@ public class MemberDAO {
 			pst.setDouble(7, dto.getPoint());
 			pst.setString(8, dto.getBirthday());
 			pst.setString(9, dto.getRid());
+			pst.setString(10, dto.getUploadfile());
 
 			return pst.executeUpdate();
 

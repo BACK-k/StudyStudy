@@ -28,7 +28,7 @@ public class JoDAO {
 	// joList
 	public List<JoDTO> selectList() {
 //		sql = "select * from jo";
-		sql = "select J.JNO, J.JNAME, J.CAPTAIN, M.NAME 조장명, J.PROJECT, J.SLOGAN FROM JO J, MEMBER M WHERE J.CAPTAIN = M.ID";
+		sql = "select J.JNO, J.JNAME, J.CAPTAIN, M.NAME 조장명, J.PROJECT, J.SLOGAN, J.uploadfile FROM JO J, MEMBER M WHERE J.CAPTAIN = M.ID";
 		List<JoDTO> list = new ArrayList<JoDTO>();
 
 		try {
@@ -45,6 +45,7 @@ public class JoDAO {
 					dto.setCname(rs.getString(4));
 					dto.setProject(rs.getString(4));
 					dto.setSlogan(rs.getString(5));
+					dto.setUploadfile(rs.getString(6));
 
 					list.add(dto);
 				} while (rs.next());
