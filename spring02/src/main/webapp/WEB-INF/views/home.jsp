@@ -39,7 +39,11 @@
 	&nbsp;<a href="board/boardList">BList</a>
 	&nbsp;<a href="bcrypt">BCrypt</a><br>
 <!-- 절대경로로 이미지넣어주기 -->
-<img alt="" src="resources/images/KarinaSapporo1.jpg" width="140" height="200">
+<img alt="" src="resources/images/Arcana1.png" width="250" height="250">
+<img alt="" src="resources/images/Arcana2.gif" width="250" height="250">
+<img alt="" src="resources/images/Arcana1.png" width="250" height="250">
+<img alt="" src="resources/images/Arcana3.gif" width="250" height="250"><br>
+<!-- <img alt="" src="resources/images/KarinaSapporo1.jpg" width="140" height="200">
 <img alt="" src="resources/images/KarinaBlack11.jpg" width="130" height="200">
 <img alt="" src="resources/images/KarinaPink6.jpg" width="140" height="200">
 <img alt="" src="resources/images/KarinaSapporo3.jpg" width="160" height="200">
@@ -72,7 +76,7 @@
 <img alt="" src="resources/images/ShinSaekyeong3.gif" width="190" height="200">
 <img alt="" src="resources/images/ShinSaekyeong.gif" width="200" height="200">
 <img alt="" src="resources/images/ShinSaekyeong.jpg" width="150" height="200">
-<img alt="" src="resources/images/ShinSaekyeong2.gif" width="180" height="200">
+<img alt="" src="resources/images/ShinSaekyeong2.gif" width="180" height="200"> -->
 
 </body>
 </html>

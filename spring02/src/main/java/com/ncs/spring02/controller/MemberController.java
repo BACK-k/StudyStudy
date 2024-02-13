@@ -278,8 +278,9 @@ public class MemberController {
 			// 개발중, 내 로컬주소 경로
 			realPath = "C:\\MTest\\StudyStudy\\spring02\\src\\main\\webapp\\resources\\uploadImages\\";
 		// 배포 후, 웹의 주소 경로
+		// realPath => C:\\MTest\\IDESet\\apache-tomcat-9.0.85\\webapps\\spring02\\
 		else
-			realPath = "resources\\uploadImages\\";
+			realPath = "C:\\MTest\\IDESet\\apache-tomcat-9.0.85\\webapps\\spring02\\resources\\uploadImages\\";
 
 		// 1.3 폴더 만들기(없을수도 있음을 가정, File)
 		// File type 객체 생성 : new File("경로");
@@ -302,7 +303,7 @@ public class MemberController {
 		// => IO 발생: Checked Exception 처리
 		file = new File(realPath + "KarinaFlower1.jpg"); // uploadImages 폴더에 화일존재 확인을 위함
 		if (!file.isFile()) { // 존재하지않는 경우
-			String basicImagePath = "C:\\MTest\\MyWork\\Spring02\\src\\main\\webapp\\resources\\images\\KarinaFlower1.jpg";
+			String basicImagePath = "C:\\MTest\\StudyStudy\\Spring02\\src\\main\\webapp\\resources\\images\\KarinaFlower1.jpg";
 			FileInputStream fi = new FileInputStream(new File(basicImagePath));
 			// => basicImage 읽어 파일 입력바이트스트림 생성
 			FileOutputStream fo = new FileOutputStream(file);
@@ -373,13 +374,48 @@ public class MemberController {
 
 	// Update
 	@RequestMapping(value = { "/update" }, method = RequestMethod.POST)
-	public String update(HttpSession session, Model model, MemberDTO dto) {
+	public String update(HttpServletRequest request, HttpSession session, Model model, MemberDTO dto)
+			throws IOException {
 		// 1 요청 분석
 		// 성공 : memberDetail
 		// 실패 : updateForm
 		// 출력하려면 dto 객체의 값("apple")이 필요하므로 보관
 		String uri = "member/memberDetail";
 		model.addAttribute("apple", dto);
+
+		// uploadFile 처리
+		// newImage 선택 여부
+		// 선택 -> oldImage 삭제, newImage 저장 : uploadfilef 사용
+		// 선택하지않음 -> oldImage가 uploadfile로 전달되었으므로 그냥 사용하면 됨
+		MultipartFile uploadfilef = dto.getUploadfilef();
+		if (uploadfilef != null && !uploadfilef.isEmpty()) {
+			// newImage를 선택함
+			// 1 물리적위치 저장(file1)
+			String realPath = request.getRealPath("/");
+			String file1, file2 = dto.getUploadfile();
+
+			// 2 realPath를 이용해서 물리적 저장위치 확인
+			if (realPath.contains(".eclipse."))
+				realPath = "C:\\MTest\\StudyStudy\\spring02\\src\\main\\webapp\\resources\\uploadImages\\";
+			else
+				realPath = "resources\\uploadImages\\";
+
+			// 3 oldFile 삭제
+			// oldFile Name : dto.getUploadfile()
+			// 삭제경로 : realPath + dto.getUploadfile()
+			File delFile = new File(realPath + dto.getUploadfile());
+			// 파일이 존재하면 삭제
+			if (delFile.isFile())
+				delFile.delete();
+
+			// 4 newFile 저장
+			file1 = realPath + uploadfilef.getOriginalFilename();
+			uploadfilef.transferTo(new File(file1));
+
+			// 5 Table 저장경로 완성(file2)
+			file2 = uploadfilef.getOriginalFilename();
+			dto.setUploadfile(file2);
+		}
 
 		// 2 Service
 		if (service.update(dto) > 0) {

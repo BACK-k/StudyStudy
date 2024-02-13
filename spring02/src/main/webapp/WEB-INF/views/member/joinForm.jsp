@@ -277,7 +277,26 @@ function inCheck(){
 		<!-- File Upload 기능추가 -->
 			<tr height="40">
 				<td bgcolor="MediumPurple"><label for="uploadfilef"> Image </label></td>
-				<td><input type="file" name="uploadfilef" id="uploadfilef" size="20"></td>
+				<td>
+					<img alt="MyImage" src="" class="select_img" width="80" height="100"><br>
+					<input type="file" name="uploadfilef" id="uploadfilef" size="20">
+				</td>
+				<script>
+			        document.getElementById('uploadfilef').onchange=function(e){
+			         if(this.files && this.files[0]) {
+			            let reader = new FileReader;
+			            reader.readAsDataURL(this.files[0]);
+			             reader.onload = function(e) {
+			                // => jQuery를 사용하지 않는경우
+			                // class는 같은 이름이 여러개 존재가능, index를 올바르게 설정해야함
+			                document.getElementsByClassName('select_img')[0].src=e.target.result;
+			               // $로 jQuery를 사용하고, 리턴도 jQuery로 하기때문에 . 선택자로 계속해서 사용가능
+			               //$(".select_img").attr("src", e.target.result)
+			               //            .width(70).height(90); 
+			               } // onload_function
+			          } // if   
+			        }; //change  
+      			</script>
 			</tr>
 			<tr>
 				<td></td>
