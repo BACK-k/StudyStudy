@@ -398,7 +398,7 @@ public class MemberController {
 			if (realPath.contains(".eclipse."))
 				realPath = "C:\\MTest\\StudyStudy\\spring02\\src\\main\\webapp\\resources\\uploadImages\\";
 			else
-				realPath = "resources\\uploadImages\\";
+				realPath = "C:\\MTest\\IDESet\\apache-tomcat-9.0.85\\webapps\\spring02\\resources\\uploadImages\\";
 
 			// 3 oldFile 삭제
 			// oldFile Name : dto.getUploadfile()
