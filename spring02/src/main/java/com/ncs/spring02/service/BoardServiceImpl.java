@@ -8,12 +8,23 @@ import org.springframework.stereotype.Service;
 import com.ncs.spring02.domain.BoardDTO;
 
 import mapperInterface.BoardMapper;
+import pageTest.Criteria;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 	@Autowired
 //	BoardDAO dao;
 	BoardMapper mapper;
+
+	// bPageList
+	public List<BoardDTO> bPageList(Criteria cri) {
+		return mapper.bPageList(cri);
+	}
+
+	// totalRowsCount
+	public int totalRowsCount(Criteria cri) {
+		return mapper.totalRowsCount(cri);
+	}
 
 	@Override
 	public List<BoardDTO> selectList() {

@@ -4,7 +4,16 @@ import java.util.List;
 
 import com.ncs.spring02.domain.BoardDTO;
 
+import pageTest.Criteria;
+
 public interface BoardService {
+
+	// bPageList
+	public List<BoardDTO> bPageList(Criteria cri);
+
+	// totalRowsCount
+	public int totalRowsCount(Criteria cri);
+
 	// selectList
 	public List<BoardDTO> selectList();
 

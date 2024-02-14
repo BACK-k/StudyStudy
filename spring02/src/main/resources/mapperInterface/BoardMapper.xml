@@ -26,6 +26,19 @@
          
 4) 조건문, 반복문, sql, include, selectKey 등          
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- Board Paging 
+	MySQL : Limit a, b -> a개를 제외하고 b개
+	Oracle : Between a and b -> a부터 b까지
+-->
+	<select id="bPageList" resultType="com.ncs.spring02.domain.BoardDTO">
+		select * from board 
+		order by root desc, step asc
+		limit #{sno}, #{rowsPerPage}
+	</select>
+
+	<select id="totalRowsCount" resultType="int">
+		select count(*) from board;
+	</select>
 
 <!-- selectList -->
 	<select id="selectList" resultType="com.ncs.spring02.domain.BoardDTO">
