@@ -65,10 +65,10 @@
      <c:choose>
      	<c:when test="${pageMaker.prev && pageMaker.spageNo>1}">
      		<a href="bPageList?currPage=1&rowsPerPage=5">&LT;&LT;</a>&nbsp;
-     		<a href="bPageList?currPage=${pageMaker.spageNo-1}&rowsPerPage=5">&LT;</a>&nbsp;&nbsp;
+     		<a href="bPageList?currPage=${pageMaker.spageNo-1}&rowsPerPage=5">&nbsp;&LT;</a>&nbsp;&nbsp;
      	</c:when>
      	<c:otherwise>
-     		<font color="Gray">&LT;&LT;&nbsp;&LT;&nbsp;&nbsp;</font>
+     		<font color="Gray">&LT;&LT;&nbsp;&nbsp;&LT;&nbsp;</font>
      	</c:otherwise>
      </c:choose>
      
@@ -87,11 +87,11 @@
 <!-- 3) Next, LastPage -->
      <c:choose>
      	<c:when test="${pageMaker.next && pageMaker.epageNo>0}">
-     		&nbsp;<a href="bPageList?currPage=${pageMaker.epageNo+1}&rowsPerPage=5">&GT;</a>
-     		&nbsp;<a href="bPageList?currPage=${pageMaker.lastPageNo}&rowsPerPage=5">LP</a>
+     		&nbsp;<a href="bPageList?currPage=${pageMaker.epageNo+1}&rowsPerPage=5">&GT;&nbsp;</a>
+     		&nbsp;<a href="bPageList?currPage=${pageMaker.lastPageNo}&rowsPerPage=5">&GT;&GT;</a>
      	</c:when>
      	<c:otherwise>
-     		<font color="Gray">&nbsp;&GT;&nbsp;LP</font>
+     		<font color="Gray">&nbsp;&GT;&nbsp;&nbsp;&GT;&GT;</font>
      	</c:otherwise>
      </c:choose>
 
