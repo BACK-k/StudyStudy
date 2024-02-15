@@ -5,7 +5,7 @@
 
 <!-- joList -->
 	<select id="selectList" resultType="com.ncs.spring02.domain.JoDTO">
-		select J.JNO, J.JNAME, J.CAPTAIN, M.NAME 조장명, J.PROJECT, J.SLOGAN FROM JO J, MEMBER M WHERE J.CAPTAIN = M.ID
+		select J.JNO, J.JNAME, J.CAPTAIN, M.NAME cname, J.PROJECT, J.SLOGAN FROM JO J, MEMBER M WHERE J.CAPTAIN = M.ID
 	</select>
 	
 <!-- joDetail -->

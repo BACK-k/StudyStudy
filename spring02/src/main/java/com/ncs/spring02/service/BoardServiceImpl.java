@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ncs.spring02.domain.BoardDTO;
 
 import mapperInterface.BoardMapper;
-import pageTest.Criteria;
+import pageTest.SearchCriteria;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -16,14 +16,30 @@ public class BoardServiceImpl implements BoardService {
 //	BoardDAO dao;
 	BoardMapper mapper;
 
+	@Override
+	public List<BoardDTO> bCheckList(SearchCriteria cri) {
+		return mapper.bCheckList(cri);
+	}
+
+	@Override
+	public int bCheckRowsCount(SearchCriteria cri) {
+		return mapper.bCheckRowsCount(cri);
+	}
+
 	// bPageList
-	public List<BoardDTO> bPageList(Criteria cri) {
-		return mapper.bPageList(cri);
+	public List<BoardDTO> bPageList(SearchCriteria cri) {
+		// ver01
+//		return mapper.bPageList(cri);
+		// ver02
+		return mapper.bSearchList(cri);
 	}
 
 	// totalRowsCount
-	public int totalRowsCount(Criteria cri) {
-		return mapper.totalRowsCount(cri);
+	public int totalRowsCount(SearchCriteria cri) {
+		// ver01
+//		return mapper.totalRowsCount(cri);
+		// ver02
+		return mapper.bSearchRowsCount(cri);
 	}
 
 	@Override

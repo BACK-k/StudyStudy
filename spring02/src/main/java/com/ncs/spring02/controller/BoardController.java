@@ -14,8 +14,8 @@ import com.ncs.spring02.domain.BoardDTO;
 import com.ncs.spring02.service.BoardService;
 
 import lombok.AllArgsConstructor;
-import pageTest.Criteria;
 import pageTest.PageMaker;
+import pageTest.SearchCriteria;
 
 @Controller
 @AllArgsConstructor
@@ -23,15 +23,46 @@ import pageTest.PageMaker;
 public class BoardController {
 	BoardService service;
 
-	// Board Paging
-	@GetMapping("/bPageList")
-	public void bPageList(Model model, Criteria cri, PageMaker pageMaker) {
+	// Board Check List
+	@GetMapping("/bCheckList")
+	public String bCheckList(Model model, SearchCriteria cri, PageMaker pageMaker) {
+		String uri = "board/bPageList";
+
 		// 1 Criteria 처리
-		// currPage, rowsPerPage 값들은 Parameter로 전달되어 자동으로 cri에 set
+		cri.setSnoEno();
+
+		// 2 Service
+		// => check 의 값을 선택하지 않은경우 check 값을 null 로 확실하게 해줘야함.
+		// mapper 에서 명확하게 구분할수 있도록해야 정확한 저리가능
+		if (cri.getCheck() != null && cri.getCheck().length < 1)
+			cri.setCheck(null);
+		model.addAttribute("banana", service.bCheckList(cri));
+
+		// 3 View 처리
+		pageMaker.setCri(cri);
+		pageMaker.setTotalRowsCount(service.bCheckRowsCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+
+		return uri;
+
+	} // bCheckList
+
+	// Board Paging
+	// ver01 : Criteria 사용
+	// public void bPageList(Model model, Criteria cri, PageMaker pageMaker)
+	// ver02 : SearchCriteria 사용(검색기능 추가)
+	@GetMapping("/bPageList")
+	public void bPageList(Model model, SearchCriteria cri, PageMaker pageMaker) {
+		// 1 Criteria 처리
+		// ver01 : currPage, rowsPerPage 값들은 Parameter로 전달되어 자동으로 cri에 set
+		// ver02 : ver01 + searchType, keyword도 동일하게 cri에 set되어짐
 		cri.setSnoEno();
 
 		// 2 Service
 		// 출력 대상 Rows를 select
+		// ver01, 02 모두 같은 service 메서드 사용
+		// mapper interface에서 사용하는 sql 구문만 교체
+		// 즉 BoardMapper.xml에 새로운 sql 구문 2개 추가, BoardMapper interface 수정
 		model.addAttribute("banana", service.bPageList(cri));
 
 		// 3 View : PageMaker 활용
