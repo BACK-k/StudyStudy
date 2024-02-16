@@ -2,6 +2,81 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapperInterface.MemberMapper">
+<!-- Member Check List -->
+	<select id="mCheckList" resultType="com.ncs.spring02.domain.MemberDTO">
+		select *
+		from member
+		<if test="check != null">
+			where jno in
+			<foreach collection="check" item="it" open="(" close=")" separator=",">
+				#{it}
+			</foreach>
+		</if>
+		order by jno
+		limit #{sno}, #{rowsPerPage}
+	</select>
+	
+	<select id="mCheckRowsCount" resultType="int">
+		select count(*)
+		from member
+		<if test="check != null">
+			where jno in
+			<foreach collection="check" item="it" open="(" close=")" separator=",">
+				#{it}
+			</foreach>
+		</if>
+	</select>
+	
+<!-- Member Search Paging -->
+	<sql id="search">
+	<!-- 1 CONCAT('%',#{keyword},'%') 처리 -->
+		<if test="keyword != null">
+			<bind name="keyval" value="'%'+keyword+'%'"/>
+		</if>
+	<!-- Like 조건문 -->	
+		<choose>
+			<!-- id, title, content 에서 keyword가 포함된 글 목록 -->
+			<when test="searchType=='all' and keyword!=null">
+				where (id Like #{keyval}
+				or name Like #{keyval}
+				or age Like #{keyval}
+				or birthday Like #{keyval}
+				or info Like #{keyval}
+				or rid Like #{keyval})
+			</when>
+			<!-- searchType이 컬럼명인 경우 -->
+			<when test="searchType!=null and keyword!=null">
+				where ${searchType} Like #{keyval}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="mSearchList" resultType="com.ncs.spring02.domain.MemberDTO">
+		select * from member
+<!-- where (id is not null -->
+		<include refid="search"></include>
+		order by id
+		limit #{sno}, #{rowsPerPage}
+	</select>
+
+	<select id="mSearchRowsCount" resultType="int">
+		select count(*) from member
+		<include refid="search"></include>
+	</select>
+	
+<!-- Member Paging -->
+	<select id="mPageList" resultType="com.ncs.spring02.domain.MemberDTO">
+		select * from member
+		order by id
+		limit #{sno}, #{rowsPerPage}
+	</select>
+
+	<select id="totalRowsCount" resultType="int">
+		select count(*) from member
+	</select>
+
 <!-- selectJoList -->
 	<select id="selectJoList" resultType="com.ncs.spring02.domain.MemberDTO">
 		SELECT * FROM member WHERE jno=#{jno}

@@ -28,7 +28,10 @@ function searchDB(){
 //	    이때는 서버에 searchType, keyword 가 전달되기 이전이므로 
 //	    searchType, keyword 가 없는 makeQuery 메서드사용
 	self.location = 'bPageList'
-			+'${pageMaker.makeQuery(1)}'
+/*      => 하나의 jsp 문서로 다양한 요청을 처리하기위해 쿼리스트링에 url 을 포함했기 때문에
+        첫 요청에서는  makeQuery 메서드 사용할수 없음 */
+//			+'${pageMaker.makeQuery(1)}'
+			+'?currPage=1&rowsPerPage=5'
 			+'&searchType='+document.getElementById('searchType').value
 			+'&keyword='+document.getElementById('keyword').value;
 } // searchDB
@@ -171,8 +174,8 @@ function checkClear(){
      		<a href="bPageList${pageMaker.makeQuery(pageMaker.spageNo-1)}">&nbsp;&LT;</a>&nbsp;&nbsp;
  -->
 <!-- ver02 : searchQuery 메서드 적용 -->
-     		<a href="bPageList${pageMaker.searchQuery(1)}">&LT;&LT;</a>&nbsp;
-     		<a href="bPageList${pageMaker.searchQuery(pageMaker.spageNo-1)}">&nbsp;&LT;</a>&nbsp;&nbsp;
+     		<a href="${pageMaker.searchQuery(1)}">&LT;&LT;</a>&nbsp;
+     		<a href="${pageMaker.searchQuery(pageMaker.spageNo-1)}">&nbsp;&LT;</a>&nbsp;&nbsp;
      	</c:when>
      	<c:otherwise>
      		<font color="Gray">&LT;&LT;&nbsp;&nbsp;&LT;&nbsp;</font>
@@ -187,15 +190,15 @@ function checkClear(){
 			<font color="Orange" size="5"><b>${i}</b></font>&nbsp;
 		</c:if>
 		<c:if test="${i!=pageMaker.cri.currPage}">
-			<a href="bPageList${pageMaker.searchQuery(i)}">${i}</a>&nbsp;
+			<a href="${pageMaker.searchQuery(i)}">${i}</a>&nbsp;
 		</c:if>
 	</c:forEach>
 
 <!-- 3) Next, LastPage -->
      <c:choose>
      	<c:when test="${pageMaker.next && pageMaker.epageNo>0}">
-     		&nbsp;<a href="bPageList${pageMaker.searchQuery(pageMaker.epageNo+1)}">&GT;&nbsp;</a>
-     		&nbsp;<a href="bPageList${pageMaker.searchQuery(pageMaker.lastPageNo)}">&GT;&GT;</a>
+     		&nbsp;<a href="${pageMaker.searchQuery(pageMaker.epageNo+1)}">&GT;&nbsp;</a>
+     		&nbsp;<a href="${pageMaker.searchQuery(pageMaker.lastPageNo)}">&GT;&GT;</a>
      	</c:when>
      	<c:otherwise>
      		<font color="Gray">&nbsp;&GT;&nbsp;&nbsp;&GT;&GT;</font>

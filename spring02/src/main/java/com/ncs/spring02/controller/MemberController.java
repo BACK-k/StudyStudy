@@ -24,131 +24,59 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ncs.spring02.domain.MemberDTO;
 import com.ncs.spring02.service.MemberService;
 
-//IOC/DI 적용 ( @Component의 세분화 )
-//스프링 프레임워크에서는 클래스들을 기능별로 분류하기위해 @을 추가함
-//@Controller :사용자 요청을 제어하는 Controller 클래스
-//	원래는 Controller로 인식시키기 위해서 Controller를 Interface로 구현해놨음
-//	DispatcherServlet이 해당 객체를 Controller객체로 인식하게 해줌
-//	 -> Interface Controller의 구현의무 없어짐
-//		이로인해 메서드 handleRequest() 의 오버라이딩 의무가 없어짐
-//		따라서 메서드이름, 매개변수, 리턴타입이 자유로워짐
-//		 그러나 ModelAndView, String, void 타입만 사용 가능
-//		그리고 메서드, 클래스 단위로 매핑해주는 @RequestMapping 사용가능
-//		그러므로 하나의 컨트롤러 클래스에 여러개의 매핑메서드의 구현이 가능해짐
-//		그래서 주로 DataBase의 테이블(Entity) 단위로 작성을 한다(MemberController.java)
-//@Service : 비즈니스로직을 담당하는 Service 클래스
-//@Repository : DB 연동을 담당하는 DAO 클래스
-//	DB 연동과정에서 발생하는 예외를 변환 해주는 기능 추가
+import pageTest.PageMaker;
+import pageTest.SearchCriteria;
 
-//** Spring 의 redirect ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-//** RedirectAttributes
-//=> Redirect 할 때 파라메터를 쉽게 전달할 수 있도록 지원하며,
-// addAttribute, addFlashAttribute, getFlashAttribute 등의 메서드가 제공됨.
-//=> addAttribute
-// - url에 퀴리스트링으로 파라메터가 붙어 전달됨. 
-// - 그렇기 때문에 전달된 페이지에서 파라메터가 노출됨.
-
-//=> addFlashAttribute
-// - Redirect 동작이 수행되기 전에 Session에 값이 저장되고 전달 후 소멸된다.
-// - Session을 선언해서 집어넣고 사용 후 지워주는 수고를 덜어주고,
-//    -> url에 퀴리스트링으로 붙지 않기때문에 깨끗하고 f5(새로고침)에 영향을 주지않음.  
-//    -> 주의사항 
-//       받는쪽 매핑메서드의 매개변수로 parameter를 전달받는 VO가 정의되어 있으면
-//       이 VO 생성과 관련된 500 발생 하므로 주의한다.
-//      ( Test : JoController 의 jupdate 성공시 redirect:jdetail )
-//      단, VO로 받지 않는 경우에는 url에 붙여 전달하면서 addFlashAttribute 사용가능함        
-
-//=> getFlashAttribute
-//    - insert 성공 후 redirect:jlist 에서 Test (JoController, 결과는 null)
-//    - 컨트롤러에서 addFlashAttribute 가 session에 보관한 값을 꺼내는것은 좀더 확인이 필요함 
-
-//** redirect 로 한글 parameter 전달시 한글깨짐
-//=> 한글깨짐이 발생하는경우 사용함.
-//=> url 파라메터 로 전달되는 한글값 을 위한 encoding
-//    - String message = URLEncoder.encode("~~ member 가 없네용 ~~", "UTF-8");
-//      mv.setViewName("redirect:mlist?message="+message);  
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-//** Model & ModelAndView **
-
-//=> Model(interface)
-//-> controller처리 후 데이터(Model) 을 담아서 반환 
-//-> 구현클래스 : ConcurrentModel, ExtendedModelMap 등.
-//-> 아래의 매핑 메서드들 처럼, ModelAndView 보다 심플한 코드작성 가능하므로 많이사용됨. 
-// mv.setViewName("~~~~~") 하지않고 viewName 을 return 
-
-//=> ModelAndView (class)
-//-> controller처리 후 데이터(Model) 와 viewName 을 담아서 반환
-//-> Object -> ModelAndView
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-//** @RequestMapping
-//=> DefaultAnnotationHandlerMapping에서 컨트롤러를 선택할 때 대표적으로 사용하는 애노테이션. 
-//=> DefaultAnnotationHandlerMapping은 클래스와 메서드에 붙은 @RequestMapping 애노테이션 정보를 결합해 최종 매핑정보를 생성한다.
-//=> 기본적인 결합 방법은 클래스 레벨의 @RequestMapping을 기준으로 삼고, 
-//  메서드 레벨의 @RequestMapping으로 세분화하는 방식으로 사용된다.
-
-//** @RequestMapping 특징
-//=> url 당 하나의 컨트롤러에 매핑되던 다른 핸들러 매핑과 달리 메서드 단위까지 세분화하여 적용할 수 있으며,
-// url 뿐 아니라 파라미터, 헤더 등 더욱 넓은 범위를 적용할 수 있다. 
-//=> 요청과 매핑메서드 1:1 mapping 
-//=> value="/mlist" 
-// : 이때 호출되는 메서드명과 동일하면 value 생략가능 그러나 value 생략시 404 (확인필요함)
-// : 해당 메서드 내에서 mv.setViewName("...."); 을 생략 
-//  또는 아래의 메서드를 사용하는 경우에는 void 로 작성 (view 를 return 하지않음) 하는 경우
-//   요청명을 viewName 으로 인식 즉, mv.setViewName("mlist") 으로 처리함.
-//  또는 return "mlist" ( 즉, mlist.jsp 를 viewName으로 인식 )
-
-//** @RequestMapping 속성
-//=> value : URL 패턴 ( 와일드카드 * 사용 가능 )
-//  @RequestMapping(value="/post")
-//  @RequestMapping(value="/post.*")
-//  @RequestMapping(value="/post/**/comment")
-//  @RequestMapping(value={"/post", "/P"}) : 다중매핑 가능
-
-//=> method 
-// @RequestMapping(value="/post", method=RequestMethod.GET)
-// -> url이 /post인 요청 중 GET 메서드인 경우 호출됨
-// @RequestMapping(value="/post", method=RequestMethod.POST)
-// -> url이 /post인 요청 중 POST 메서드인 경우 호출됨
-//    GET, POST, PUT, DELETE, OPTIONS, TRACE 총 7개의 HTTP 메서드가 정의되어 있음.
-//    ( 이들은 아래 @GetMapping ... 등으로도 좀더 간편하게 사용가능
-//      그러나 이들은 메서드 레벨에만 적용가능    )  
-
-//=> params : 요청 파라미터와 값으로도 구분 가능함.
-// @RequestMapping(value="/post", params="useYn=Y")
-// -> /post?useYn=Y 일 경우 호출됨
-// @RequestMapping(value="/post", params="useYn!=Y")
-// ->  not equal도 가능
-// @RequestMapping(value="/post", parmas="useYn")
-// > 값에 상관없이 파라미터에 useYn이 있을 경우 호출됨
-// @RequestMapping(value="/post", params="!useYn")
-// > 파라미터에 useYn이 없어야 호출됨
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-//** Lombok 지원 로그메시지  
-//=> @Log4j Test
-// -> dependency 필요함 (pom.xml 확인)
-// -> 로깅레벨 단계 준수함 ( log4j.xml 의 아래 logger Tag 의 level 확인)
-//    TRACE > DEBUG > INFO > WARN > ERROR > FATAL(치명적인)
-//    <logger name="com.ncs.green">
-//       <level value="info" />
-//    </logger>   
-
-// -> Logger 사용과의 차이점 : "{}" 지원안됨 , 호출명 log
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-//DispatcherServlet이 해당 객체를 Controller객체로 인식하게 해줌
 @Controller
-// member로 시작하는 요청들이 모두 여기로 오게함
 @RequestMapping(value = "/member")
 public class MemberController {
 	@Autowired(required = false)
 	MemberService service;
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	// = new BCryptPasswordEncoder(); -> root--.xml에 bean을 등록
+
+	// Member Check List
+	@GetMapping("/mCheckList")
+	public String mCheckList(HttpServletRequest request, Model model, SearchCriteria cri, PageMaker pageMaker) {
+		String uri = "member/mPageList";
+		String mappingName = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
+
+		// 1 Criteria 처리
+		cri.setSnoEno();
+
+		// 2 Service 처리
+		if (cri.getCheck() != null && cri.getCheck().length < 1) {
+			cri.setCheck(null);
+		}
+		model.addAttribute("banana", service.mCheckList(cri));
+
+		// 3 View 처리
+		pageMaker.setCri(cri);
+		pageMaker.setMappingName(mappingName);
+		pageMaker.setTotalRowsCount(service.mCheckRowsCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+
+		return uri;
+	} // mCheckList
+
+	// Member Paging
+	@GetMapping("/mPageList")
+	public void mPageList(HttpServletRequest request, Model model, SearchCriteria cri, PageMaker pageMaker) {
+		String mappingName = request.getRequestURI().substring(request.getRequestURI().lastIndexOf("/") + 1);
+
+		// 1 Criteria 처리
+		cri.setSnoEno();
+
+		// 2 Service 처리
+		model.addAttribute("banana", service.mPageList(cri));
+
+		// 3 View 처리
+		pageMaker.setCri(cri);
+		pageMaker.setMappingName(mappingName);
+		pageMaker.setTotalRowsCount(service.totalRowsCount(cri));
+		model.addAttribute("pageMaker", pageMaker);
+
+	}
 
 	// ID 중복확인
 	@GetMapping("/idDupCheck")
@@ -164,16 +92,6 @@ public class MemberController {
 
 	} // idDupCheck
 
-// Login Form 출력
-// ver01 : return String
-//	@RequestMapping(value = { "/loginForm" }, method = RequestMethod.GET)
-//	public String loginForm(Model model) {
-//		return "member/loginForm";
-//	} // loginForm
-
-// ver02 : return void
-	// viewName이 생략됨 -> 요청명과 동일한 viewName을 자동으로 찾음
-	// /WEB-INF/views/member/loginFom.jsp
 	@RequestMapping(value = { "/loginForm" }, method = RequestMethod.GET)
 	public void loginForm() {
 	} // loginForm
@@ -181,10 +99,6 @@ public class MemberController {
 	// login
 	@PostMapping("/login")
 	public String login(HttpSession session, Model model, MemberDTO dto) {
-//		String id = request.getParameter("id");
-//		dto.setID(id);
-		// 맵핑 메서드에 인자로 정의되어있는 객체와
-		// 동일한 컬럼명의 값은 자동으로 담아준다
 
 		// 1 요청분석
 		// => requst 로 전달되는 id, password 처리:
@@ -221,9 +135,6 @@ public class MemberController {
 	// Member Detail
 	// 단일 Parameter의 경우 @RequestParam("...")을 활용
 	@RequestMapping(value = { "/detail" }, method = RequestMethod.GET)
-	// String jCode = request.getParameter("jCode")와 동일
-	// 단, 해당하는 Parameter가 없으면 400 오류 발생
-	// 그러므로 detail 요청에도 ?jCode=D 를 추가
 	public String datail(HttpSession session, Model model, @RequestParam("jCode") String jCode) {
 		// 1 요청분석
 		// id를 session에서 get
@@ -259,12 +170,6 @@ public class MemberController {
 		// 스프링 : 한글은 filter, request 처리는 parameter
 		String uri = "member/loginForm";
 
-		// upload File 처리
-		// 주요 과제
-		// 전달된 파일 저장 : file1 (서버의 물리적 실제저장위치 필요)
-		// 전달된 파일명을 Table에 저장 : file2
-		// MultipartFile : 위의 과정을 지원해주는 전용 객체
-
 		// 1) 물리적 실제 저장위치 확인
 		// 1.1) 현재 웹어플리케이션의 실행 위치 확인
 		// eclipse 개발환경(배포전) --.eclipse.-- 포함
@@ -286,8 +191,6 @@ public class MemberController {
 		// File type 객체 생성 : new File("경로");
 		// => file.exists()
 		// -> 파일 또는 폴더가 존재하는지 리턴
-		// -> 폴더가 아닌, 파일존재 확인하려면 file.isDirectory() 도 함께 체크해야함.
-		// ( 참고: https://codechacha.com/ko/java-check-if-file-exists/ )
 		// => file.isDirectory() : 폴더이면 true 그러므로 false 이면 file 이 존재 한다는 의미가 됨.
 		// => file.isFile()
 		// -> 파일이 존재하는 경우 true 리턴,
@@ -300,7 +203,6 @@ public class MemberController {
 		// --------------------------------------------
 		// ** File Copy 하기 (IO Stream)
 		// => 기본이미지(basicman4.png) 가 uploadImages 폴더에 없는경우 기본폴더(images) 에서 가져오기
-		// => IO 발생: Checked Exception 처리
 		file = new File(realPath + "KarinaFlower1.jpg"); // uploadImages 폴더에 화일존재 확인을 위함
 		if (!file.isFile()) { // 존재하지않는 경우
 			String basicImagePath = "C:\\MTest\\StudyStudy\\Spring02\\src\\main\\webapp\\resources\\images\\KarinaFlower1.jpg";
@@ -313,9 +215,6 @@ public class MemberController {
 		// --------------------------------------------
 		// ** MultipartFile
 		// => 업로드한 파일에 대한 모든 정보를 가지고 있으며 이의 처리를 위한 메서드를 제공한다.
-		// -> String getOriginalFilename(),
-		// -> void transferTo(File destFile),
-		// -> boolean isEmpty()
 		// 1.4) 저장경로 완성
 		String file1 = "", file2 = "KarinaFlower1.jpg";
 		// image_File을 선택
@@ -440,16 +339,9 @@ public class MemberController {
 
 		// 2 Service 처리
 		if (service.delete(id) > 0) {
-			model.addAttribute("message", " 탈퇴 성공 ");
-			// requestScope의 message를 redirect 시에도 유지하려면
-			// session에 보관했다가 사용 후에는 삭제해야함
-			// RedirectAttributes API가
-			// session에 보관 후 redirect 되어진 요청 처리시에 requestScope에 옮기고,
-			// session의 message는 삭제
 			rttr.addFlashAttribute("message", " 탈퇴 성공 ");
 			session.invalidate();
 		} else {
-			model.addAttribute("message", " 탈퇴 실패 ");
 			rttr.addFlashAttribute("message", " 탈퇴 실패 ");
 		}
 		return uri;

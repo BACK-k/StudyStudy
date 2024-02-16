@@ -38,7 +38,8 @@
 	&nbsp;<a href="jo/joList">JList</a>
 	&nbsp;<a href="board/boardList">BList</a>
 	&nbsp;<a href="bcrypt">BCrypt</a><br>
-	&nbsp;<a href="board/bPageList">BPage</a><br>
+	&nbsp;<a href="board/bPageList">BPage</a>
+	&nbsp;<a href="member/mPageList">MPage</a><br>
 	
 <!-- 절대경로로 이미지넣어주기 -->
 <img alt="" src="resources/images/Arcana1.png" width="250" height="250">
