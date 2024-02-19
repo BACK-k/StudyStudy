@@ -1,11 +1,11 @@
 package javaTest;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 public class Ex02_DBConnection {
 	// 1 static, return 값이 있는 경우 (@Test는 None-static, void만 허용)
