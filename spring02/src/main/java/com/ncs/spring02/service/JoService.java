@@ -10,7 +10,7 @@ public interface JoService {
 	List<JoDTO> selectList();
 
 	// joDetail
-	JoDTO selectOne(String jno);
+	JoDTO selectOne(int jno);
 
 	// joInsert
 	int insert(JoDTO dto);

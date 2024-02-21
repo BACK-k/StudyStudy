@@ -32,7 +32,7 @@ public class JoController {
 
 	// joDetail
 	@RequestMapping(value = "/joDetail", method = RequestMethod.GET)
-	public String jDetail(Model model, @RequestParam("jno") String jno, @RequestParam("jCode") String jCode) {
+	public String jDetail(Model model, @RequestParam("jno") int jno, @RequestParam("jCode") String jCode) {
 		String uri = "/jo/joDetail";
 		model.addAttribute("apple", service.selectOne(jno));
 

@@ -34,7 +34,7 @@ public class JoServiceImpl implements JoService {
 
 	// joDetail
 	@Override
-	public JoDTO selectOne(String jno) {
+	public JoDTO selectOne(int jno) {
 		return mapper.selectOne(jno);
 	}
 

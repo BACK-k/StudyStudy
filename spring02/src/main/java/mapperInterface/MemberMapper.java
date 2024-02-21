@@ -40,7 +40,7 @@ public interface MemberMapper {
 	List<MemberDTO> selectList();
 
 	// selectJoList
-	List<MemberDTO> selectJoList(String jno);
+	List<MemberDTO> selectJoList(int jno);
 
 	// selectOne
 	MemberDTO selectOne(String id);

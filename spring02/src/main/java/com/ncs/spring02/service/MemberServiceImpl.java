@@ -45,7 +45,7 @@ public class MemberServiceImpl implements MemberService {
 
 	// selectJoList
 	@Override
-	public List<MemberDTO> selectJoList(String jno) {
+	public List<MemberDTO> selectJoList(int jno) {
 		return mapper.selectJoList(jno);
 	}
 

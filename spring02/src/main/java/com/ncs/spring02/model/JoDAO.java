@@ -28,7 +28,7 @@ public class JoDAO {
 	// joList
 	public List<JoDTO> selectList() {
 //		sql = "select * from jo";
-		sql = "select J.JNO, J.JNAME, J.CAPTAIN, M.NAME cname, J.PROJECT, J.SLOGAN J.UPLOADFILE FROM JO J, MEMBER M WHERE J.CAPTAIN = M.ID";
+		sql = "select J.JNO, J.JNAME, J.CAPTAIN, M.NAME cname, J.PROJECT, J.SLOGAN FROM JO J, MEMBER M WHERE J.CAPTAIN = M.ID";
 		List<JoDTO> list = new ArrayList<JoDTO>();
 
 		try {
@@ -45,7 +45,6 @@ public class JoDAO {
 					dto.setCname(rs.getString(4));
 					dto.setProject(rs.getString(5));
 					dto.setSlogan(rs.getString(6));
-					dto.setUploadfile(rs.getString(7));
 
 					list.add(dto);
 				} while (rs.next());
@@ -60,12 +59,12 @@ public class JoDAO {
 	} // joList
 
 	// joDetail
-	public JoDTO selectOne(String jno) {
+	public JoDTO selectOne(int jno) {
 		sql = "SELECT * FROM jo WHERE jno=?";
 
 		try {
 			pst = cn.prepareStatement(sql);
-			pst.setString(1, jno);
+			pst.setInt(1, jno);
 			rs = pst.executeQuery();
 
 			if (rs.next()) {
