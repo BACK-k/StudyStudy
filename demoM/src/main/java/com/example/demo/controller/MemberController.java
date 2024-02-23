@@ -44,6 +44,14 @@ public class MemberController {
 	// DemoConfig에 설정
 	PasswordEncoder passwordEncoder;
 
+	// axmlist
+	@GetMapping("/aximlist")
+	public String axiMemberList(Model model) {
+		model.addAttribute("banana", service.selectList());
+		log.info(" axMemberList 성공 ");
+		return "axTest/axMemberList";
+	}
+
 	// Member Check List
 	@GetMapping("/mCheckList")
 	public String mCheckList(HttpServletRequest request, Model model, SearchCriteria cri, PageMaker pageMaker) {
@@ -278,5 +286,5 @@ public class MemberController {
 		}
 		return uri;
 	} // Delete
-}
-// class
+
+}// class

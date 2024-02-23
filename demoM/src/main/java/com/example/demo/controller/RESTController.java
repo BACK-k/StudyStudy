@@ -1,20 +1,27 @@
 package com.example.demo.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.domain.JoDTO;
+import com.example.demo.domain.MemberDTO;
+import com.example.demo.domain.UserDTO;
 import com.example.demo.service.JoService;
 import com.example.demo.service.MemberService;
 
@@ -28,6 +35,8 @@ import lombok.extern.log4j.Log4j2;
 public class RESTController {
 	MemberService service;
 	JoService jservice;
+	// DemoConfig에 bean 생성 설정
+	PasswordEncoder passwordEncoder;
 
 	@GetMapping("/hello")
 	// 메뉴없이 직접 요청 : http://localhost:8080/spring02/rest/hello
@@ -213,7 +222,7 @@ public class RESTController {
 	@GetMapping("/order/{test1}/{test2}")
 	public String[] order(@PathVariable("test1") String category, @PathVariable("test2") String color) {
 		return new String[] { "category : " + category, "color : " + color };
-	}
+	} // order
 
 	// 6 @RequestBody
 	// => JSON 형식으로 전달된 Data를 컨트롤러에서 사용자정의 객체(DTO) _Java객체 로 변환할때 사용
@@ -232,6 +241,98 @@ public class RESTController {
 			log.info("** convert Test HttpStatus.BAD_GATEWAY => " + HttpStatus.BAD_GATEWAY);
 		}
 		return result;
-	}
+	} // convert
 
+	// ** Ajax: 비동기 통신 fetch 요청 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// 1) Login1
+	// => Request: JSON, Response: Text
+	// => MediaType
+	// Mapping 시 받는 데이터를 강제를 함으로 오류상황을 줄일 수 있다.
+	// 이것을 위해 사용하는것중 하나가 MediaType 이며,
+	// 받는 데이터를 제한할때 consumes (위에서는 Json 임을 강제함)
+	// 나가는 데이터를 제한할때 produces (위에서는 String을 Return 함을 강제함)
+	// => consumes를 설정하면 Request Header에 보내는 Data가 JSON 임을 명시해야함.
+	// => @RequestBody : Json -> Java 객체로 파싱
+	@PostMapping(value = "/rslogin", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<?> rslogin(HttpSession session, @RequestBody MemberDTO dto) {
+		ResponseEntity<String> result = null;
+		// 1 password 보관
+		String password = dto.getPassword();
+
+		// 2 Service 처리
+		// => 성공: login 정보를 session에 보관후, status OK, body="성공 message"
+		// 실패: status INTERNAL_BAD_GATEWAY 502, body="실패 message"
+		dto = service.selectOne(dto.getId());
+		if (dto != null && passwordEncoder.matches(password, dto.getPassword())) {
+			session.setAttribute("loginID", dto.getId());
+			session.setAttribute("loginName", dto.getName());
+			result = ResponseEntity.status(HttpStatus.OK).body(" 로그인 성공 ");
+			log.info(" reLogin HttpStatus.OK => " + HttpStatus.OK);
+		} else {
+			result = ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(" 로그인 실패 ");
+			log.info(" reLogin HttpStatus.BAD_GATEWAY => " + HttpStatus.BAD_GATEWAY);
+		}
+		return result;
+	} // rslogin
+
+	// 2 Login2
+	// request : JSON, reponse : JSON
+	// UserDTO 사용, login 정보를 담아서 전송
+	@PostMapping(value = "/rsloginjj", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> rsloginjj(HttpSession session, @RequestBody MemberDTO dto) {
+		ResponseEntity<UserDTO> result = null;
+		// 1 password 보관
+		String password = dto.getPassword();
+
+		// 2 Service 처리
+		dto = service.selectOne(dto.getId());
+		if (dto != null && passwordEncoder.matches(password, dto.getPassword())) {
+			session.setAttribute("loginID", dto.getId());
+			session.setAttribute("loginName", dto.getName());
+			// response로 전송할 객체 생성, 담기
+			// UserDTO 활용, builder 패턴 적용
+			// UserDTO의 값에 대한 변경을 예방하기 위해 fianl 사용하기도 함
+			final UserDTO userDTO = UserDTO.builder().id(dto.getId()).username(dto.getName()).build();
+
+			result = ResponseEntity.status(HttpStatus.OK).body(userDTO);
+			log.info(" reLogin HttpStatus.OK => " + HttpStatus.OK);
+		} else {
+			result = ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(null);
+			log.info(" reLogin HttpStatus.BAD_GATEWAY => " + HttpStatus.BAD_GATEWAY);
+		}
+		return result;
+	} // rsloginjj
+
+	// 3 join
+	// => image 포함, "multipart/form-data" Type 으로 요청
+	// => consumes, produces 설정
+	@PostMapping(value = "/rsjoin", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+	// formData가 JS의 객체 형태로 POST되어 @RequestBody가 없어도 됨
+	public ResponseEntity<?> rsjoin(MemberDTO dto) throws Exception {
+		ResponseEntity<String> result = null;
+		// join Service 처리
+		// MultipartFile, passwordEncoder(암호화)
+		String realPath = "C:\\MTest\\MyWork\\demoM\\src\\main\\webapp\\resources\\uploadImages\\";
+		String file1 = "", file2 = "KarinaFlower1.jpg";
+		MultipartFile uploadfilef = dto.getUploadfilef();
+		if (uploadfilef != null && !uploadfilef.isEmpty()) {
+			file1 = realPath + uploadfilef.getOriginalFilename();
+			uploadfilef.transferTo(new File(file1));
+
+			file2 = uploadfilef.getOriginalFilename();
+		}
+		dto.setUploadfile(file2);
+
+		// passwordEncoder 적용
+		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+		if (service.insert(dto) > 0) {
+			result = ResponseEntity.status(HttpStatus.OK).body(" 회원가입 성공! 로그인 후 이용하세요 ");
+			log.info(" rsJoin HttpStatus.OK => " + HttpStatus.OK);
+		} else {
+			result = ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(" 회원가입 실패! ");
+			log.info(" rsJgin HttpStatus.BAD_GATEWAY => " + HttpStatus.BAD_GATEWAY);
+		}
+
+		return result;
+	} // rsjoin
 } // class

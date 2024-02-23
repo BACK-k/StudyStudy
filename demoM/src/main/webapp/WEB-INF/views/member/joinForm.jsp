@@ -224,7 +224,7 @@ function inCheck(){
        multipart/form-data로 지정이 되어 있어야 서버에서 정상적으로 데이터를 처리할 수 있다.     
 -->
 
-	<form action="join" method="post" enctype="multipart/form-data">
+	<form action="join" method="post" id="myform" enctype="multipart/form-data">
 		<table>
 			<tr height="40">
 				<td bgcolor="MediumPurple"><label for="id"> I D </label></td>
@@ -301,8 +301,8 @@ function inCheck(){
     - submit 진행 : default (또는 return true)
     - submit 정지 : submit 이벤트를 무효화 해야함 (return false 또는 이벤트.preventDefault())  -->
 <!-- incheck가 true를 return하면 submit 실행 -->
-         <input type="submit" id="submitTag" value="가입"
-         onclick="return inCheck()" disabled>&nbsp;&nbsp;
+			         <input type="submit" id="submitTag" value="가입"
+			         onclick="return inCheck()" disabled>&nbsp;&nbsp;
 <!-- Button Test
 => default : form 내부에서는  submit 와  동일하게 작동됨 
             inCheck() 의 return 값에 따라 (true 면) submit 진행됨 
@@ -310,7 +310,9 @@ function inCheck(){
    예) button 을 선택하면 submit 은 실행되지않음
    Enter_Key : form 내부에서는 누르면 submit이 진행됨 -->
 <!-- <button onclick="inCheck()">ButtonTest</button> -->
-    	<input type="reset" value="취소">
+			    	<input type="reset" value="취소">&nbsp;&nbsp;
+			    	<!-- Axios Join Test -->
+			    	<span class="textlink" onclick="axiJoin()">axiJoin</span>
 				</td>
 			</tr>
 		</table>
