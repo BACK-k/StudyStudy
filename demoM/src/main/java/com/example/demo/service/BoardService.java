@@ -7,6 +7,9 @@ import com.example.demo.domain.BoardDTO;
 import pageTest.SearchCriteria;
 
 public interface BoardService {
+	// Ajax 비동기처리 : id별 boardList 출력
+	// mapper.xml에 가지않고 직접 처리 String id를 #{id}에 인자로 전달
+	public List<BoardDTO> idbList(String id);
 
 	// Board Check List
 	public List<BoardDTO> bCheckList(SearchCriteria cri);
