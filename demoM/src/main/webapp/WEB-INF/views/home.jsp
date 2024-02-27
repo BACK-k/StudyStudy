@@ -12,10 +12,11 @@
 <P> Home_time : ${serverTime} </P>
 <hr>
 <!-- 절대경로로 이미지넣어주기 -->
-<img alt="" src="resources/images/Arcana1.png" width="250" height="250">
+<img alt="" src="resources/images/No.gif" width="450" height="450"><br>
+<!-- <img alt="" src="resources/images/Arcana1.png" width="250" height="250">
 <img alt="" src="resources/images/Arcana2.gif" width="250" height="250">
 <img alt="" src="resources/images/Arcana3.gif" width="250" height="250">
-<img alt="" src="resources/images/RohJeongeui.jpg" width="380" height="450"><br>
+<img alt="" src="resources/images/RohJeongeui.jpg" width="380" height="450"><br> -->
 <!-- <img alt="" src="resources/images/KarinaSapporo1.jpg" width="140" height="200">
 <img alt="" src="resources/images/KarinaBlack11.jpg" width="130" height="200">
 <img alt="" src="resources/images/KarinaPink6.jpg" width="140" height="200">

@@ -374,4 +374,23 @@ public class RESTController {
 
 	} // axiDelete
 
-} // class
+	@GetMapping("/jodetail/{jno}")
+	public ResponseEntity<?> showJoDetail(@PathVariable("jno") int jno, JoDTO dto) {
+		ResponseEntity<?> result = null;
+
+		// service 처리
+		dto = jservice.selectOne(jno);
+
+		// 출력 데이터 유무확인
+		if (jservice.selectOne(jno) != null) {
+			result = ResponseEntity.status(HttpStatus.OK).body(dto);
+			log.info(" axiJoDetail HttpStatus.OK => " + HttpStatus.OK);
+		} else {
+			result = ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(" 조회 실패 ");
+			log.info(" axiJoDetail HttpStatus.BAD_GATEWAY => " + HttpStatus.BAD_GATEWAY);
+		}
+		return result;
+	} // axiJoDetail
+
+}
+// class
