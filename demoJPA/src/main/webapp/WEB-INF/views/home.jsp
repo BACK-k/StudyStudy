@@ -81,6 +81,11 @@
 	&nbsp;<a href="board/bPageList">BPage</a>
 	&nbsp;<a href="member/mPageList">MPage</a>
 	&nbsp;<a href="/axtestform">AjaxTest</a><br>
+	&nbsp;<a href="/ginsert">GInsert</a>
+	&nbsp;<a href="/glist">GList</a>
+	&nbsp;<a href="/gupdate">GUpdate</a>
+	&nbsp;<a href="/gpage">GPage</a>
+	
 	<hr>
 
 </body>
