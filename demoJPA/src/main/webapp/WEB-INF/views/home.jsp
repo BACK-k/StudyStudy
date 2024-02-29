@@ -84,7 +84,8 @@
 	&nbsp;<a href="/ginsert">GInsert</a>
 	&nbsp;<a href="/glist">GList</a>
 	&nbsp;<a href="/gupdate">GUpdate</a>
-	&nbsp;<a href="/gpage">GPage</a>
+	&nbsp;<a href="/gpage">GPage</a><br>
+	&nbsp;<a href="member/mjoinList">mJoinList</a>&nbsp;
 	
 	<hr>
 

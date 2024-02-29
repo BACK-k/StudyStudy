@@ -2,23 +2,20 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.domain.JoDTO;
+import com.example.demo.entity.Jo;
 
 public interface JoService {
 
 	// joList
-	List<JoDTO> selectList();
+	List<Jo> selectList();
 
 	// joDetail
-	JoDTO selectOne(int jno);
+	Jo selectOne(int jno);
 
-	// joInsert
-	int insert(JoDTO dto);
-
-	// joUpdate
-	int update(JoDTO dto);
+	// joInsert, joUpdate
+	Jo save(Jo entity);
 
 	// joDelete
-	int delete(String jno);
+	void deleteById(int jno);
 
 }

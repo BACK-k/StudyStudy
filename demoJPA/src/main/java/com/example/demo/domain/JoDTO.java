@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class JoDTO {
 	private int jno;
-	private String jname;
+	// MemberDTO를 이용한 JPQL을 사용할 때, 후손이 접근 가능하게 바꿔줌
+	protected String jname;
 	private String captain;
-	private String project;
+	protected String project;
 	private String slogan;
 	private String cname;
 }
