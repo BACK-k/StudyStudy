@@ -2,13 +2,14 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.MemberDTO;
 import com.example.demo.entity.Member;
+import com.example.demo.repository.MemberDSLRepositoryImpl;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.MyRepositoryImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,11 +18,16 @@ import lombok.RequiredArgsConstructor;
 public class MemberServiceImpl implements MemberService {
 
 	private final MemberRepository repository;
+	private final MyRepositoryImpl emrepository;
+	private final MemberDSLRepositoryImpl dslrepository;
 
 	// ** Join
 	@Override
 	public List<MemberDTO> findMemberJoin() {
-		return repository.findMemberJoin();
+		// ver01
+		// return repository.findMemberJoin();
+		// ver02
+		return dslrepository.findMemberJoinDSL();
 	}
 
 	// Password Update
@@ -35,23 +41,35 @@ public class MemberServiceImpl implements MemberService {
 	// JPARepository Method Naming 규약
 	@Override
 	public List<Member> findByJno(int jno) {
-		return repository.findByJno(jno);
+		// ver01
+		// return repository.findByJno(jno);
+		// ver02
+		return dslrepository.findMemberJnoDSL(jno);
 	}
 
 	// SelectList
 	@Override
 	public List<Member> selectList() {
-		return repository.findAll();
+		// ver01
+		// return repository.findAll();
+
+		// ver02 EntityManager Test
+		return emrepository.emMemberList();
 	}
 
 	// selectOne
 	@Override
-	public Member selectOne(String entity) {
-		Optional<Member> result = repository.findById(entity);
-		if (result.isPresent())
-			return result.get();
-		else
-			return null;
+	public Member selectOne(String id) {
+		// ver01
+//		Optional<Member> result = repository.findById(entity);
+//		if (result.isPresent())
+//			return result.get();
+//		else
+//			return null;
+
+		// ver02 EntityManager Test
+		return emrepository.emMemberDetail(id);
+
 	}
 
 	// insert, update

@@ -145,28 +145,31 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	// password Update에 적용
 	// 2.1 JPQL
 	// Table 명 대신 Entity 명을 사용
-	// 내용이 변경되는 구문에서만 사용
+	// 내용이 변경되는 구문에서만 @Modifying, @Transactional 사용
 	@Modifying
 	@Transactional
 	@Query("update Member set password=:password where id=:id")
-	void updatePassword1(@Param("id") String id, @Param("password") String password);
+	void updatePassword(@Param("id") String id, @Param("password") String password);
 
 	// 2.2 NativeQuery
 	// nativeQuery 속성 true, Table명 사용
 	@Modifying
 	@Transactional
 	@Query(nativeQuery = true, value = "update member set password=:password where id=:id")
-	void updatePassword(@Param("id") String id, @Param("password") String password);
+	void updatePassword2(@Param("id") String id, @Param("password") String password);
 
 	// 2.3 Join 구문에 @Query 적용
 	// => JPQL
-	// entity가 아닌 MemberDTO로 return 받기위해 new 사용
+	// entity가 아닌 MemberDTO로 return 받기위해 new 사용, 생성자를 호출
 	// Table명 대신 entity명 사용
 	@Query("SELECT new com.example.demo.domain.MemberDTO(m.id, m.name, m.jno, j.jname, j.project) FROM Member m LEFT JOIN Jo j ON m.jno=j.jno order by m.jno")
-	List<MemberDTO> findMemberJoin1();
+	List<MemberDTO> findMemberJoin();
 
 	// 2.4 nativeQuery
-	@Query(nativeQuery = true, value = "SELECT member(m.id, m.name, m.jno, j.jname, j.project) FROM Member m LEFT JOIN Jo j ON m.jno=j.jno order by m.jno")
-	List<MemberDTO> findMemberJoin();
+	// [org.springframework.data.jpa.repository.query.AbstractJpaQuery$TupleConverter$TupleBackedMap]
+	// to type [com.example.demo.domain.MemberDTO]
+	// DTO 직접 사용 불가
+	@Query(nativeQuery = true, value = "SELECT m.id, m.name, m.jno, j.jname, j.project FROM member m LEFT JOIN Jo j ON m.jno=j.jno order by m.jno")
+	List<MemberDTO> findMemberJoin2();
 
 }
