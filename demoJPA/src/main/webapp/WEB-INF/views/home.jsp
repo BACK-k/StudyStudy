@@ -1,23 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-	<title>Home</title>
-	<link rel="stylesheet" type="text/css" 
-	href="/resources/myLib/myStyle.css">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" href="/resources/myLib/myStyle.css">
 </head>
 <body>
-<h2> Hello SpringBoot JPA !!! </h2>
-<P> Home_time : ${serverTime} </P>
-<hr>
-<!-- 절대경로로 이미지넣어주기 -->
-<img alt="" src="resources/images/No.gif" width="700" height="500"><br>
-<!-- <img alt="" src="resources/images/Arcana1.png" width="250" height="250">
+	<h2>Hello SpringBoot JPA !!!</h2>
+	<P>Home_time : ${serverTime}</P>
+	<hr>
+	<!-- 절대경로로 이미지넣어주기 -->
+	<img alt="" src="resources/images/No.gif" width="700" height="500">
+	<br>
+	<!-- <img alt="" src="resources/images/Arcana1.png" width="250" height="250">
 <img alt="" src="resources/images/Arcana2.gif" width="250" height="250">
 <img alt="" src="resources/images/Arcana3.gif" width="250" height="250">
 <img alt="" src="resources/images/RohJeongeui.jpg" width="380" height="450"><br> -->
-<!-- <img alt="" src="resources/images/KarinaSapporo1.jpg" width="140" height="200">
+	<!-- <img alt="" src="resources/images/KarinaSapporo1.jpg" width="140" height="200">
 <img alt="" src="resources/images/KarinaBlack11.jpg" width="130" height="200">
 <img alt="" src="resources/images/KarinaPink6.jpg" width="140" height="200">
 <img alt="" src="resources/images/KarinaSapporo3.jpg" width="160" height="200">
@@ -51,42 +50,53 @@
 <img alt="" src="resources/images/ShinSaekyeong.gif" width="200" height="200">
 <img alt="" src="resources/images/ShinSaekyeong.jpg" width="150" height="200">
 <img alt="" src="resources/images/ShinSaekyeong2.gif" width="180" height="200"> -->
-<c:if test="${!empty sessionScope.loginName}">
+	<c:if test="${!empty sessionScope.loginName}">
 	${sessionScope.loginName}님 안녕하세요<br>
-</c:if>
-<c:if test="${empty sessionScope.loginID}">
+	</c:if>
+	<c:if test="${empty sessionScope.loginID}">
 	로그인 후 이용하세요<br>
-</c:if>
-<c:if test="${!empty requestScope.message}">
-	<hr><h4>${requestScope.message}</h4>
-</c:if>
-<hr>
-<!-- Login 전 -->
-<c:if test="${empty sessionScope.loginID}">
+	</c:if>
+	<c:if test="${!empty requestScope.message}">
+		<hr>
+		<h4>${requestScope.message}</h4>
+	</c:if>
+	<hr>
+	<!-- Login 전 -->
+	<c:if test="${empty sessionScope.loginID}">
 	&nbsp;<a href="member/loginForm">LoginF</a>
 	&nbsp;<a href="member/joinForm">JoinF</a>
-</c:if>
-<!-- Login 후 -->
-<c:if test="${!empty sessionScope.loginName}">
+	</c:if>
+	<!-- Login 후 -->
+	<c:if test="${!empty sessionScope.loginName}">
 	&nbsp;<a href="member/detail?jCode=D">내정보</a>
 	&nbsp;<a href="member/detail?jCode=U">내정보수정</a>
 	&nbsp;<a href="member/logout">Logout</a>
 	&nbsp;<a href="member/delete">회원탈퇴</a>
-</c:if>
-<br><hr>
-	&nbsp;<a href="member/memberList">MList</a>
-	&nbsp;<a href="jo/joList">JList</a>
-	&nbsp;<a href="board/boardList">BList</a>
-	&nbsp;<a href="bcrypt">BCrypt</a><br>
-	&nbsp;<a href="board/bPageList">BPage</a>
-	&nbsp;<a href="member/mPageList">MPage</a>
-	&nbsp;<a href="/axtestform">AjaxTest</a><br>
-	&nbsp;<a href="/ginsert">GInsert</a>
-	&nbsp;<a href="/glist">GList</a>
-	&nbsp;<a href="/gupdate">GUpdate</a>
-	&nbsp;<a href="/gpage">GPage</a><br>
-	&nbsp;<a href="member/mjoinList">mJoinList</a>&nbsp;
-	
+	</c:if>
+	<br>
+	<hr>
+	&nbsp;<a href="member/memberList">MList</a> &nbsp;
+	<a href="jo/joList">JList</a> &nbsp;
+	<a href="board/boardList">BList</a> &nbsp;
+	<a href="bcrypt">BCrypt</a>
+	<br> 
+	&nbsp;<a href="board/bPageList">BPage</a> &nbsp;
+	<a href="member/mPageList">MPage</a> &nbsp;
+	<a href="/axtestform">AjaxTest</a>
+	<br>
+	&nbsp;<a href="/ginsert">GInsert</a> &nbsp;
+	<a href="/glist">GList</a> &nbsp;
+	<a href="/gupdate">GUpdate</a> &nbsp;
+	<a href="/gpage">GPage</a>
+	<br>
+	&nbsp;<a href="member/mjoinList">mJoinList</a>
+	<br>
+	&nbsp;<a href="/tinsert">TSave</a>&nbsp; &nbsp;
+	<a href="/tupdate">TUpdate</a>&nbsp; &nbsp;
+	<a href="/tdupupdate">TDupUpdate</a>&nbsp; &nbsp;
+	<a href="/tcalcCount">TCalc</a>&nbsp; &nbsp;
+	<a href="/testlist">TList</a>&nbsp;
+
 	<hr>
 
 </body>
