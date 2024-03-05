@@ -9,7 +9,7 @@
 	<h2>Hello SpringBoot JPA !!!</h2>
 	<P>Home_time : ${serverTime}</P>
 	<hr>
-	<!-- 절대경로로 이미지넣어주기 -->
+	<!-- 절대경로로 이미지넣어주기! -->
 	<img alt="" src="resources/images/No.gif" width="700" height="500">
 	<br>
 	<!-- <img alt="" src="resources/images/Arcana1.png" width="250" height="250">
